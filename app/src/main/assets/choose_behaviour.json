@@ -1,0 +1,41 @@
+[
+    {
+        "sort": "choose_behavior",
+        "chapter": "行为动作",
+        "chinese": "拉",
+        "pinyin": "la",
+        "level": "四级",
+        "picture": "choose_pull",
+        "voice": "pull"
+    },
+    {
+        "sort": "choose_behavior",
+        "chapter": "行为动作",
+        "chinese": "推",
+        "pinyin": "tui",
+        "level": "四级",
+        "picture": "choose_push",
+        "voice": "push"
+    },
+    {
+        "sort": "choose_behavior",
+        "chapter": "行为动作",
+        "chinese": "跳",
+        "pinyin": "tiao",
+        "level": "四级",
+        "picture": "choose_jump",
+        "voice": "jump"
+    },
+    {
+        "sort": "choose_behavior",
+        "chapter": "行为动作",
+        "chinese": "看",
+        "pinyin": "kan",
+        "level": "四级",
+        "picture": "choose_look",
+        "voice": "look"
+    }
+
+
+
+]

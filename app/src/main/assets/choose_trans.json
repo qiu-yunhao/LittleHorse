@@ -1,0 +1,41 @@
+[
+    {
+        "sort": "choose_trans",
+        "chapter": "交通工具",
+        "chinese": "公交车",
+        "pinyin": "gong jiao che",
+        "level": "三级",
+        "picture": "choose_bus",
+        "voice": "bus"
+    },
+    {
+        "sort": "choose_trans",
+        "chapter": "交通工具",
+        "chinese": "汽车",
+        "pinyin": "qi che",
+        "level": "三级",
+        "picture": "choose_car",
+        "voice": "car"
+    },
+    {
+        "sort": "choose_trans",
+        "chapter": "交通工具",
+        "chinese": "飞机",
+        "pinyin": "fei ji",
+        "level": "三级",
+        "picture": "choose_plane",
+        "voice": "plane"
+    },
+    {
+        "sort": "choose_trans",
+        "chapter": "交通工具",
+        "chinese": "船",
+        "pinyin": "chuan",
+        "level": "三级",
+        "picture": "choose_ship",
+        "voice": "ship"
+    }
+
+
+
+]

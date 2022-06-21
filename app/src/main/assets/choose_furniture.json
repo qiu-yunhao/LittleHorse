@@ -1,0 +1,41 @@
+[
+    {
+        "sort": "choose_furniture",
+        "chapter": "家居",
+        "chinese": "桌子",
+        "pinyin": "zhuo zi",
+        "level": "二级",
+        "picture": "choose_desk",
+        "voice": "desk"
+    },
+    {
+        "sort": "choose_furniture",
+        "chapter": "家居",
+        "chinese": "凳子",
+        "pinyin": "deng zi",
+        "level": "二级",
+        "picture": "choose_stool",
+        "voice": "stool"
+    },
+    {
+        "sort": "choose_furniture",
+        "chapter": "家居",
+        "chinese": "窗户",
+        "pinyin": "chuang hu",
+        "level": "二级",
+        "picture": "choose_window",
+        "voice": "window"
+    },
+    {
+        "sort": "choose_furniture",
+        "chapter": "家居",
+        "chinese": "窗帘",
+        "pinyin": "chuang lian",
+        "level": "二级",
+        "picture": "choose_curtains",
+        "voice": "curtains"
+    }
+
+
+
+]
