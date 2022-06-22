@@ -10,8 +10,7 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class RegisterActivity extends AppCompatActivity
-{
+public class RegisterActivity extends AppCompatActivity {
 
     private ImageView finish_rgs;
     private View decorView;
@@ -20,12 +19,13 @@ public class RegisterActivity extends AppCompatActivity
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        finish_rgs=findViewById(R.id.finish_rgs);
-        decorView=getWindow().getDecorView();
+        finish_rgs = findViewById(R.id.finish_rgs);
+        decorView = getWindow().getDecorView();
         UIShrink();
         init();
     }
-    private void UIShrink(){
+
+    private void UIShrink() {
 //        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         decorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -38,7 +38,7 @@ public class RegisterActivity extends AppCompatActivity
     }
 
 
-    private void init(){
+    private void init() {
         finish_rgs.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -49,8 +49,7 @@ public class RegisterActivity extends AppCompatActivity
         );
     }
 
-    public void toLogin(View view)
-    {
+    public void toLogin(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();

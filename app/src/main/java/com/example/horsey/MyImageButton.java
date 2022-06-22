@@ -13,36 +13,35 @@ import android.widget.ImageButton;
 
 @SuppressLint("AppCompatCustomView")
 public class MyImageButton extends ImageButton {
-    public String text=null;
-    public float textX,textY;
+    public String text = null;
+    public float textX, textY;
     public int color;
-    public float textsize=0f;
-    public MyImageButton(Context context, AttributeSet attrs)
-    {
-        super(context,attrs);
+    public float textsize = 0f;
+
+    public MyImageButton(Context context, AttributeSet attrs) {
+        super(context, attrs);
     }
-    public void setText(String text)
-    {
-        this.text=text;
+
+    public void setText(String text) {
+        this.text = text;
     }
-    public void setColor(int color)
-    {
-        this.color=color;
+
+    public void setColor(int color) {
+        this.color = color;
     }
-    public  void setTextsize(float textsize)
-    {
-        this.textsize=textsize;
+
+    public void setTextsize(float textsize) {
+        this.textsize = textsize;
     }
 
     @Override
-    public void onDraw(Canvas canvas)
-    {
+    public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Paint paint=new Paint();
+        Paint paint = new Paint();
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setColor(color);
         paint.setTextSize(textsize);
-        canvas.drawText(text,textX,textY,paint);
+        canvas.drawText(text, textX, textY, paint);
     }
 
 }

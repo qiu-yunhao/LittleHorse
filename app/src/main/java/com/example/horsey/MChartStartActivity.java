@@ -37,7 +37,7 @@ public class MChartStartActivity extends AppCompatActivity {
 
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        View decorView=getWindow().getDecorView();
+        View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -46,8 +46,8 @@ public class MChartStartActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         );
-        textView=findViewById(R.id.textView);
-        button=findViewById(R.id.getstarted);
+        textView = findViewById(R.id.textView);
+        button = findViewById(R.id.getstarted);
         getIntro();
         loadTransactions();
     }
@@ -57,7 +57,7 @@ public class MChartStartActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MChartStartActivity.this,MChartMainActivity2.class);
+                Intent intent = new Intent(MChartStartActivity.this, MChartMainActivity2.class);
                 startActivity(intent);
             }
         });
@@ -74,11 +74,11 @@ public class MChartStartActivity extends AppCompatActivity {
                 String sta = new String(b);
                 buffer.append(sta);
             }
-            String problems=buffer.toString();
+            String problems = buffer.toString();
             try {
-                JSONArray jsonArray=new JSONArray(URLDecoder.decode(problems,"GB2312"));
+                JSONArray jsonArray = new JSONArray(URLDecoder.decode(problems, "GB2312"));
                 System.out.println(jsonArray.toString());
-                intro=jsonArray.getJSONObject(0).getString("intro");
+                intro = jsonArray.getJSONObject(0).getString("intro");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -88,8 +88,8 @@ public class MChartStartActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item){
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
@@ -97,12 +97,12 @@ public class MChartStartActivity extends AppCompatActivity {
         return true;
     }
 
-    public void back(View view){
+    public void back(View view) {
         finish();
     }
 
-    public void home(View view){
-        Intent intent=new Intent(Intent.ACTION_MAIN);
+    public void home(View view) {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addCategory(Intent.CATEGORY_HOME);
         this.startActivity(intent);

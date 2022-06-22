@@ -74,23 +74,23 @@ import java.util.Locale;
 
 public class PCDIGestureMainActivity2 extends AppCompatActivity implements View.OnClickListener {
 
-    public static final String KEYWORD="com.example.evasch";
+    public static final String KEYWORD = "com.example.evasch";
     //存储所有题目对应的图片
     //private ArrayList<BitmapDrawable> arrBitmap=new ArrayList<>();
     //存储每一个题目、选项及分数
-    private ArrayList<HashMap<String,String>> arrayList=new ArrayList<>();
+    private ArrayList<HashMap<String, String>> arrayList = new ArrayList<>();
     //存储选中的选项
     private String[] chosenButton;
     private int[] splitScore;
     private boolean[] isAnswered;
-    private String[] result=new String[4];
+    private String[] result = new String[4];
 
-    private int noun=0;
-    private int verb=0;
-    private int other=0;
+    private int noun = 0;
+    private int verb = 0;
+    private int other = 0;
 
-    private int count=1;
-    private int totalScore=0;
+    private int count = 1;
+    private int totalScore = 0;
     private ImageView image;
     private TextView tv;
     private Button b1;
@@ -105,8 +105,8 @@ public class PCDIGestureMainActivity2 extends AppCompatActivity implements View.
     private GridLayout gridLayout;
     private Button back;
 
-    private String str2,str4,str6;
-    private TextView button2,button4,button6,button8,button10;
+    private String str2, str4, str6;
+    private TextView button2, button4, button6, button8, button10;
 
     private String datetime;
     //private Button getResult;
@@ -117,7 +117,7 @@ public class PCDIGestureMainActivity2 extends AppCompatActivity implements View.
         setContentView(R.layout.pcdigesture_activity_main2);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        View decorView=getWindow().getDecorView();
+        View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -127,17 +127,17 @@ public class PCDIGestureMainActivity2 extends AppCompatActivity implements View.
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         );
 
-        image=findViewById(R.id.image);
-        tv=findViewById(R.id.problemtitle);
-        b1=findViewById(R.id.never);
-        b2=findViewById(R.id.seldom);
-        b3=findViewById(R.id.often);
+        image = findViewById(R.id.image);
+        tv = findViewById(R.id.problemtitle);
+        b1 = findViewById(R.id.never);
+        b2 = findViewById(R.id.seldom);
+        b3 = findViewById(R.id.often);
         //b4=findViewById(R.id.always);
-        submit=findViewById(R.id.submit);
-        left=findViewById(R.id.leftbutton);
-        number=findViewById(R.id.number);
-        right=findViewById(R.id.rightbutton);
-        drawerLayout=findViewById(R.id.main2);
+        submit = findViewById(R.id.submit);
+        left = findViewById(R.id.leftbutton);
+        number = findViewById(R.id.number);
+        right = findViewById(R.id.rightbutton);
+        drawerLayout = findViewById(R.id.main2);
         //DrawerLayout drawerLayout=findViewById(R.id.main2);
         //final View cView=findViewById(R.id.drawer);
         //DrawerLayout.LayoutParams params=new DrawerLayout.LayoutParams(500,ViewGroup.LayoutParams.MATCH_PARENT,Gravity.CENTER);
@@ -153,7 +153,7 @@ public class PCDIGestureMainActivity2 extends AppCompatActivity implements View.
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast toast=Toast.makeText(getApplicationContext(),"题目还没答完哦，暂时还不能提交呢！",Toast.LENGTH_SHORT);
+                        Toast toast = Toast.makeText(getApplicationContext(), "题目还没答完哦，暂时还不能提交呢！", Toast.LENGTH_SHORT);
                         toast.show();
                     }
                 }
@@ -161,8 +161,8 @@ public class PCDIGestureMainActivity2 extends AppCompatActivity implements View.
     }
 
     @Override
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.leftbutton:
                 onClickLeftbutton(view);
                 break;
@@ -190,8 +190,8 @@ public class PCDIGestureMainActivity2 extends AppCompatActivity implements View.
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item){
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
@@ -199,64 +199,64 @@ public class PCDIGestureMainActivity2 extends AppCompatActivity implements View.
         return true;
     }
 
-    public void back(View view){
+    public void back(View view) {
         finish();
     }
 
-    public void home(View view){
-        Intent intent=new Intent(Intent.ACTION_MAIN);
+    public void home(View view) {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addCategory(Intent.CATEGORY_HOME);
         this.startActivity(intent);
     }
 
     //加载问题及处理事务
-    public void getAllWidgets(){
+    public void getAllWidgets() {
         getProblems();
         loadTransactions();
     }
 
     //加载相关问题及逻辑关系
-    public void getProblems(){
+    public void getProblems() {
         try {
-            StringBuffer buffer=new StringBuffer();
-            InputStream inputStream =getAssets().open("PCDIGesture.json");
-            BufferedInputStream bufferedInputStream=new BufferedInputStream(inputStream);
-            byte[] b=new byte[bufferedInputStream.available()];
+            StringBuffer buffer = new StringBuffer();
+            InputStream inputStream = getAssets().open("PCDIGesture.json");
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
+            byte[] b = new byte[bufferedInputStream.available()];
 
-            while(bufferedInputStream.read(b)!=-1){
-                String sta=new String(b);
+            while (bufferedInputStream.read(b) != -1) {
+                String sta = new String(b);
                 buffer.append(sta);
             }
 
-            String problems=buffer.toString();
+            String problems = buffer.toString();
             try {
-                JSONArray jsonArray=new JSONArray(URLDecoder.decode(problems,"GB2312"));
+                JSONArray jsonArray = new JSONArray(URLDecoder.decode(problems, "GB2312"));
                 System.out.println(jsonArray.toString());
 
                 //生成一个问题
-                for(int i=0;i<jsonArray.length();i++){
-                    HashMap<String,String> map=new HashMap<String,String>();
-                    map.put("order",jsonArray.getJSONObject(i).getString("order"));
-                    map.put("title",jsonArray.getJSONObject(i).getString("title"));
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    HashMap<String, String> map = new HashMap<String, String>();
+                    map.put("order", jsonArray.getJSONObject(i).getString("order"));
+                    map.put("title", jsonArray.getJSONObject(i).getString("title"));
 
-                    JSONObject j1=new JSONObject(URLDecoder.decode(jsonArray.getJSONObject(i).getString("option1"),"GB2312"));
-                    JSONObject j2=new JSONObject(URLDecoder.decode(jsonArray.getJSONObject(i).getString("option2"),"GB2312"));
-                    JSONObject j3=new JSONObject(URLDecoder.decode(jsonArray.getJSONObject(i).getString("option3"),"GB2312"));
+                    JSONObject j1 = new JSONObject(URLDecoder.decode(jsonArray.getJSONObject(i).getString("option1"), "GB2312"));
+                    JSONObject j2 = new JSONObject(URLDecoder.decode(jsonArray.getJSONObject(i).getString("option2"), "GB2312"));
+                    JSONObject j3 = new JSONObject(URLDecoder.decode(jsonArray.getJSONObject(i).getString("option3"), "GB2312"));
 
 
-                    map.put("opt1name",j1.getString("name").toString());
-                    map.put("opt1score",j1.getString("score").toString());
-                    map.put("opt2name",j2.getString("name").toString());
-                    map.put("opt2score",j2.getString("score").toString());
-                    map.put("opt3name",j3.getString("name").toString());
-                    map.put("opt3score",j3.getString("score").toString());
-                    map.put("sort",jsonArray.getJSONObject(i).getString("sort"));
+                    map.put("opt1name", j1.getString("name").toString());
+                    map.put("opt1score", j1.getString("score").toString());
+                    map.put("opt2name", j2.getString("name").toString());
+                    map.put("opt2score", j2.getString("score").toString());
+                    map.put("opt3name", j3.getString("name").toString());
+                    map.put("opt3score", j3.getString("score").toString());
+                    map.put("sort", jsonArray.getJSONObject(i).getString("sort"));
                     arrayList.add(map);
                 }
-                splitScore=new int[arrayList.size()];
-                isAnswered=new boolean[arrayList.size()];
-                chosenButton=new String[arrayList.size()];
+                splitScore = new int[arrayList.size()];
+                isAnswered = new boolean[arrayList.size()];
+                chosenButton = new String[arrayList.size()];
                 autoWrap();
 
                 //for(int i=0;i<jsonArray.length();i++){
@@ -269,7 +269,7 @@ public class PCDIGestureMainActivity2 extends AppCompatActivity implements View.
                 //    options.inInputShareable = true;
                 //    Bitmap bm= BitmapFactory.decodeStream(bufferedInputStream1,null,options);
                 //    BitmapDrawable bd=new BitmapDrawable(getResources(),bm);
-                    //image.setBackgroundDrawable(bd);
+                //image.setBackgroundDrawable(bd);
                 //    arrBitmap.add(bd);
                 //}
             } catch (JSONException e) {
@@ -280,32 +280,32 @@ public class PCDIGestureMainActivity2 extends AppCompatActivity implements View.
         }
     }
 
-    public Bitmap getBitmap(String name){
-        BufferedInputStream bufferedInputStream1= null;
+    public Bitmap getBitmap(String name) {
+        BufferedInputStream bufferedInputStream1 = null;
         try {
             bufferedInputStream1 = new BufferedInputStream(getAssets().open(name));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        BitmapFactory.Options options=new BitmapFactory.Options();
-        options.inSampleSize=3;
-        options.inPreferredConfig=Bitmap.Config.RGB_565;
-        Bitmap bm= BitmapFactory.decodeStream(bufferedInputStream1,null,options);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 3;
+        options.inPreferredConfig = Bitmap.Config.RGB_565;
+        Bitmap bm = BitmapFactory.decodeStream(bufferedInputStream1, null, options);
         return bm;
     }
 
     //加载处理事务
-    public void loadTransactions(){
-        String strs="PCDIGesturepic"+(count)+".jpg";
-        Bitmap b=getBitmap(strs);
+    public void loadTransactions() {
+        String strs = "PCDIGesturepic" + (count) + ".jpg";
+        Bitmap b = getBitmap(strs);
 
         image.setImageBitmap(b);
-        tv.setText(arrayList.get(count-1).get("title"));
-        b1.setText(arrayList.get(count-1).get("opt1name"));
-        b2.setText(arrayList.get(count-1).get("opt2name"));
-        b3.setText(arrayList.get(count-1).get("opt3name"));
+        tv.setText(arrayList.get(count - 1).get("title"));
+        b1.setText(arrayList.get(count - 1).get("opt1name"));
+        b2.setText(arrayList.get(count - 1).get("opt2name"));
+        b3.setText(arrayList.get(count - 1).get("opt3name"));
         //b4.setText(arrayList.get(count-1).get("opt4name"));
-        number.setText(String.valueOf(count)+"/"+String.valueOf(arrayList.size()));
+        number.setText(String.valueOf(count) + "/" + String.valueOf(arrayList.size()));
         left.setOnClickListener(this);
         right.setOnClickListener(this);
         b1.setOnClickListener(this);
@@ -318,72 +318,68 @@ public class PCDIGestureMainActivity2 extends AppCompatActivity implements View.
     //点击事件
 
     private void onClickOften(View view) {
-        splitScore[count-1]= Integer.parseInt(arrayList.get(count-1).get("opt2score"));
-        isAnswered[count-1]=true;
+        splitScore[count - 1] = Integer.parseInt(arrayList.get(count - 1).get("opt2score"));
+        isAnswered[count - 1] = true;
 
         b1.setBackgroundColor(Color.parseColor("#65B1BF"));
         b3.setBackgroundColor(Color.parseColor("#187485"));
         b2.setBackgroundColor(Color.parseColor("#65B1BF"));
         //b4.setBackgroundColor(Color.parseColor("#65B1BF"));
 
-        if(arrayList.get(count-1).get("sort").equals("名词")){
+        if (arrayList.get(count - 1).get("sort").equals("名词")) {
             noun++;
-        }
-        else if(arrayList.get(count-1).get("sort").equals("动词")){
+        } else if (arrayList.get(count - 1).get("sort").equals("动词")) {
             verb++;
-        }
-        else{
+        } else {
             other++;
         }
 
-        chosenButton[count-1]= b3.getText().toString();
-        System.out.println(chosenButton[count-1]+":"+b3.getText().toString());
+        chosenButton[count - 1] = b3.getText().toString();
+        System.out.println(chosenButton[count - 1] + ":" + b3.getText().toString());
         countTotal();
-        chosenAuto(b1,b2,b3);
+        chosenAuto(b1, b2, b3);
     }
 
     private void onClickSeldom(View view) {
-        splitScore[count-1]= Integer.parseInt(arrayList.get(count-1).get("opt2score"));
-        isAnswered[count-1]=true;
+        splitScore[count - 1] = Integer.parseInt(arrayList.get(count - 1).get("opt2score"));
+        isAnswered[count - 1] = true;
 
         b1.setBackgroundColor(Color.parseColor("#65B1BF"));
         b2.setBackgroundColor(Color.parseColor("#187485"));
         b3.setBackgroundColor(Color.parseColor("#65B1BF"));
         //b4.setBackgroundColor(Color.parseColor("#65B1BF"));
 
-        if(arrayList.get(count-1).get("sort").equals("名词")){
+        if (arrayList.get(count - 1).get("sort").equals("名词")) {
             noun++;
-        }
-        else if(arrayList.get(count-1).get("sort").equals("动词")){
+        } else if (arrayList.get(count - 1).get("sort").equals("动词")) {
             verb++;
-        }
-        else{
+        } else {
             other++;
         }
 
-        chosenButton[count-1]= b2.getText().toString();
-        System.out.println(chosenButton[count-1]+":"+b2.getText().toString());
+        chosenButton[count - 1] = b2.getText().toString();
+        System.out.println(chosenButton[count - 1] + ":" + b2.getText().toString());
         countTotal();
-        chosenAuto(b1,b2,b3);
+        chosenAuto(b1, b2, b3);
     }
 
     private void onClickNever(View view) {
-        splitScore[count-1]= Integer.parseInt(arrayList.get(count-1).get("opt1score"));
-        isAnswered[count-1]=true;
+        splitScore[count - 1] = Integer.parseInt(arrayList.get(count - 1).get("opt1score"));
+        isAnswered[count - 1] = true;
 
         b1.setBackgroundColor(Color.parseColor("#187485"));
         b2.setBackgroundColor(Color.parseColor("#65B1BF"));
         b3.setBackgroundColor(Color.parseColor("#65B1BF"));
         //b4.setBackgroundColor(Color.parseColor("#65B1BF"));
 
-        chosenButton[count-1]= b1.getText().toString();
-        System.out.println(chosenButton[count-1]+":"+b1.getText().toString());
+        chosenButton[count - 1] = b1.getText().toString();
+        System.out.println(chosenButton[count - 1] + ":" + b1.getText().toString());
         countTotal();
-        chosenAuto(b1,b2,b3);
+        chosenAuto(b1, b2, b3);
     }
 
-    public void chosenAuto(Button b1, Button b2, Button b3){
-        if(count<arrayList.size()) {
+    public void chosenAuto(Button b1, Button b2, Button b3) {
+        if (count < arrayList.size()) {
             count++;
             String strs = "PCDIGesturepic" + (count) + ".jpg";
             Bitmap b = getBitmap(strs);
@@ -394,8 +390,7 @@ public class PCDIGestureMainActivity2 extends AppCompatActivity implements View.
             b2.setText(arrayList.get(count - 1).get("opt2name"));
             b3.setText(arrayList.get(count - 1).get("opt3name"));
             checkChosen(count);
-        }
-        else if (count==arrayList.size()) {
+        } else if (count == arrayList.size()) {
             count = 1;
             String strs = "PCDIGesturepic" + (count) + ".jpg";
             Bitmap b = getBitmap(strs);
@@ -407,7 +402,7 @@ public class PCDIGestureMainActivity2 extends AppCompatActivity implements View.
             b3.setText(arrayList.get(count - 1).get("opt3name"));
             checkChosen(count);
         }
-        number.setText(String.valueOf(count)+"/"+String.valueOf(arrayList.size()));
+        number.setText(String.valueOf(count) + "/" + String.valueOf(arrayList.size()));
     }
 
     private void onClickSubmit(View view) {
@@ -415,49 +410,49 @@ public class PCDIGestureMainActivity2 extends AppCompatActivity implements View.
         prepareResult();
     }
 
-    private void getResultList(){
+    private void getResultList() {
         try {
-            StringBuffer buffer=new StringBuffer();
-            StringBuffer buffer1=new StringBuffer();
+            StringBuffer buffer = new StringBuffer();
+            StringBuffer buffer1 = new StringBuffer();
             InputStream inputStream = null;
-            InputStream resultIS=null;
+            InputStream resultIS = null;
 
             inputStream = getAssets().open("PCDIGestureRESULT.json");
-            resultIS=getAssets().open("PCDIGestureEVA.json");
+            resultIS = getAssets().open("PCDIGestureEVA.json");
 
-            BufferedInputStream bufferedInputStream=new BufferedInputStream(inputStream);
-            BufferedInputStream bufferedInputStream1=new BufferedInputStream(resultIS);
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
+            BufferedInputStream bufferedInputStream1 = new BufferedInputStream(resultIS);
 
-            byte[] b=new byte[1024];
-            while(bufferedInputStream.read(b)!=-1){
-                String sta=new String(b);
+            byte[] b = new byte[1024];
+            while (bufferedInputStream.read(b) != -1) {
+                String sta = new String(b);
                 buffer.append(sta);
             }
-            String problems=buffer.toString();
+            String problems = buffer.toString();
 
-            byte[] b1=new byte[problems.getBytes().length];
-            while(bufferedInputStream1.read(b1)!=-1){
-                String sta=new String(b1);
+            byte[] b1 = new byte[problems.getBytes().length];
+            while (bufferedInputStream1.read(b1) != -1) {
+                String sta = new String(b1);
                 buffer1.append(sta);
             }
-            String problems1=buffer1.toString();
+            String problems1 = buffer1.toString();
 
-            JSONArray jsonArray= null;
-            JSONArray jsonArray1=null;
+            JSONArray jsonArray = null;
+            JSONArray jsonArray1 = null;
 
             try {
-                jsonArray = new JSONArray(URLDecoder.decode(problems,"GB2312"));
+                jsonArray = new JSONArray(URLDecoder.decode(problems, "GB2312"));
                 System.out.println(jsonArray.toString());
-                str2=jsonArray.getJSONObject(0).getString("nickname");
-                str4=jsonArray.getJSONObject(0).getString("sex");
-                str6=jsonArray.getJSONObject(0).getString("age");
+                str2 = jsonArray.getJSONObject(0).getString("nickname");
+                str4 = jsonArray.getJSONObject(0).getString("sex");
+                str6 = jsonArray.getJSONObject(0).getString("age");
 
-                jsonArray1=new JSONArray(URLDecoder.decode(problems1,"GB2312"));
+                jsonArray1 = new JSONArray(URLDecoder.decode(problems1, "GB2312"));
                 System.out.println(jsonArray1.toString());
-                result=new String[4];
-                result[0]=jsonArray1.getJSONObject(0).getString("testResult1");
-                result[1]=jsonArray1.getJSONObject(0).getString("testResult2");
-                result[2]=jsonArray1.getJSONObject(0).getString("testResult3");
+                result = new String[4];
+                result[0] = jsonArray1.getJSONObject(0).getString("testResult1");
+                result[1] = jsonArray1.getJSONObject(0).getString("testResult2");
+                result[2] = jsonArray1.getJSONObject(0).getString("testResult3");
                 //result[3]=jsonArray1.getJSONObject(0).getString("testResult4");
 
             } catch (JSONException e) {
@@ -468,18 +463,18 @@ public class PCDIGestureMainActivity2 extends AppCompatActivity implements View.
         }
     }
 
-    private void getCurrentTime(){
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-        long currenttimemillis=System.currentTimeMillis();
-        datetime=sdf.format(currenttimemillis);
+    private void getCurrentTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        long currenttimemillis = System.currentTimeMillis();
+        datetime = sdf.format(currenttimemillis);
     }
 
-    private void prepareResultList(){
-        button2=findViewById(R.id.button2);
-        button4=findViewById(R.id.button4);
-        button6=findViewById(R.id.button6);
-        button8=findViewById(R.id.button8);
-        button10=findViewById(R.id.button10);
+    private void prepareResultList() {
+        button2 = findViewById(R.id.button2);
+        button4 = findViewById(R.id.button4);
+        button6 = findViewById(R.id.button6);
+        button8 = findViewById(R.id.button8);
+        button10 = findViewById(R.id.button10);
         button2.setText(str2);
         button4.setText(str4);
         button6.setText(str6);
@@ -489,50 +484,50 @@ public class PCDIGestureMainActivity2 extends AppCompatActivity implements View.
         makeChart();
     }
 
-    private void makeChart(){
+    private void makeChart() {
         BarChart bar;                                                   //*********此行代码需插入************
         List<BarEntry> list;                                                     //*********此行代码需插入************
-        List<BarEntry>list2;                                                     //*********此行代码需插入************
+        List<BarEntry> list2;                                                     //*********此行代码需插入************
         //*********下面代码均插入***************
         bar = (BarChart) findViewById(R.id.bar);
-        list=new ArrayList<>();
-        list2=new ArrayList<>();
+        list = new ArrayList<>();
+        list2 = new ArrayList<>();
 
 
-        list.add(new BarEntry(1,60));                                  //词汇及手势表：不变    词汇及句子表：将60改为48
-        list.add(new BarEntry(2,16));                                  //词汇及手势表：不变    词汇及句子表：将16改为25
-        list.add(new BarEntry(3,30));                                  //词汇及手势表：不变    词汇及句子表：将30改为40
+        list.add(new BarEntry(1, 60));                                  //词汇及手势表：不变    词汇及句子表：将60改为48
+        list.add(new BarEntry(2, 16));                                  //词汇及手势表：不变    词汇及句子表：将16改为25
+        list.add(new BarEntry(3, 30));                                  //词汇及手势表：不变    词汇及句子表：将30改为40
 
 
-        list2.add(new BarEntry(1,noun));                                 //词汇及手势表/词汇及句子表：将15改为‘名词’类别的分数
-        list2.add(new BarEntry(2,verb));                                  //词汇及手势表/词汇及句子表：将6改为‘动词’类别的分数
-        list2.add(new BarEntry(3,other));                                 //词汇及手势表/词汇及句子表：将24改为‘其他类别’类别的分数
+        list2.add(new BarEntry(1, noun));                                 //词汇及手势表/词汇及句子表：将15改为‘名词’类别的分数
+        list2.add(new BarEntry(2, verb));                                  //词汇及手势表/词汇及句子表：将6改为‘动词’类别的分数
+        list2.add(new BarEntry(3, other));                                 //词汇及手势表/词汇及句子表：将24改为‘其他类别’类别的分数
 
-        BarDataSet barDataSet=new BarDataSet(list,"理想分数");
+        BarDataSet barDataSet = new BarDataSet(list, "理想分数");
         barDataSet.setColor(Color.TRANSPARENT);
-        BarDataSet barDataSet2=new BarDataSet(list2,"实际分数");
+        BarDataSet barDataSet2 = new BarDataSet(list2, "实际分数");
         barDataSet2.setColor(Color.parseColor("#65B1BF"));
-        BarData barData=new BarData(barDataSet);
+        BarData barData = new BarData(barDataSet);
 
         barData.addDataSet(barDataSet2);
 
         bar.setData(barData);
         bar.getXAxis().setDrawGridLines(false);
 
-        Legend legend=bar.getLegend();
+        Legend legend = bar.getLegend();
         legend.setEnabled(false);
 
         barData.setBarWidth(0.4f);
 
-        XAxis xAxis=bar.getXAxis();
+        XAxis xAxis = bar.getXAxis();
         xAxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float v, AxisBase axisBase) {
-                if(v==1)
+                if (v == 1)
                     return "名词";
-                if(v==2)
+                if (v == 2)
                     return "动词";
-                if(v==3)
+                if (v == 3)
                     return "其他类别词";
                 return "";
             }
@@ -547,11 +542,11 @@ public class PCDIGestureMainActivity2 extends AppCompatActivity implements View.
         bar.getAxisLeft().setAxisMaximum(65);
         bar.getAxisLeft().setAxisMinimum(0);
 
-        bar.getAxisLeft().setLabelCount(10,false);
+        bar.getAxisLeft().setLabelCount(10, false);
         bar.getXAxis().setAxisMaximum(4);
         bar.getXAxis().setAxisMinimum(0);
 
-        bar.getXAxis().setLabelCount(3,false);
+        bar.getXAxis().setLabelCount(3, false);
         bar.getDescription().setEnabled(false);
         bar.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         bar.getAxisRight().setEnabled(false);
@@ -561,18 +556,16 @@ public class PCDIGestureMainActivity2 extends AppCompatActivity implements View.
 
     }
 
-    private int judgeRules(){
+    private int judgeRules() {
         //age按月计算
-        int age=8;
-        int sign=0;
-        if(age==8&&totalScore<=37||age==9&&totalScore<=55||age==10&&totalScore<=68||age==11&&totalScore<=72||age>=12&&age<=13&&totalScore<=84||age==14&&totalScore<=87||age>=15&&age<=16&&totalScore<=96){
-            sign=2;
-        }
-        else if(totalScore==106){
-            sign=3;
-        }
-        else{
-            sign=1;
+        int age = 8;
+        int sign = 0;
+        if (age == 8 && totalScore <= 37 || age == 9 && totalScore <= 55 || age == 10 && totalScore <= 68 || age == 11 && totalScore <= 72 || age >= 12 && age <= 13 && totalScore <= 84 || age == 14 && totalScore <= 87 || age >= 15 && age <= 16 && totalScore <= 96) {
+            sign = 2;
+        } else if (totalScore == 106) {
+            sign = 3;
+        } else {
+            sign = 1;
         }
 
         return sign;
@@ -580,92 +573,88 @@ public class PCDIGestureMainActivity2 extends AppCompatActivity implements View.
 
     private void judgeSituation() {
 
-        int judge=judgeRules();
-        if (judge==1){
-            button10.setText("在测试的106个词汇当中，您的孩子已经掌握了"+noun+"个名词，"+verb+"个动词和"+other+"个其他类别的词语。\n\n"+str2+result[0]);
-        }
-        else if(judge==2){
-            button10.setText("在测试的106个词汇当中，您的孩子已经掌握了"+noun+"个名词，"+verb+"个动词和"+other+"个其他类别的词语。\n\n"+str2+result[1]);
-        }
-        else if(judge==3){
-            button10.setText("在测试的106个词汇当中，您的孩子已经掌握了"+noun+"个名词，"+verb+"个动词和"+other+"个其他类别的词语。\n\n"+str2+result[2]);
+        int judge = judgeRules();
+        if (judge == 1) {
+            button10.setText("在测试的106个词汇当中，您的孩子已经掌握了" + noun + "个名词，" + verb + "个动词和" + other + "个其他类别的词语。\n\n" + str2 + result[0]);
+        } else if (judge == 2) {
+            button10.setText("在测试的106个词汇当中，您的孩子已经掌握了" + noun + "个名词，" + verb + "个动词和" + other + "个其他类别的词语。\n\n" + str2 + result[1]);
+        } else if (judge == 3) {
+            button10.setText("在测试的106个词汇当中，您的孩子已经掌握了" + noun + "个名词，" + verb + "个动词和" + other + "个其他类别的词语。\n\n" + str2 + result[2]);
         }
 
     }
 
-    private void showResultList(View view){
+    private void showResultList(View view) {
         setContentView(R.layout.pcdigesture_result_list);
         getResultList();
         prepareResultList();
     }
 
-    private void onClickLeftbutton(View view){
-        if(count>1){
+    private void onClickLeftbutton(View view) {
+        if (count > 1) {
             count--;
-            String strs="PCDIGesturepic"+(count)+".jpg";
-            Bitmap b=getBitmap(strs);
+            String strs = "PCDIGesturepic" + (count) + ".jpg";
+            Bitmap b = getBitmap(strs);
 
             image.setImageBitmap(b);
-            tv.setText(arrayList.get(count-1).get("title"));
-            b1.setText(arrayList.get(count-1).get("opt1name"));
-            b2.setText(arrayList.get(count-1).get("opt2name"));
-            b3.setText(arrayList.get(count-1).get("opt3name"));
+            tv.setText(arrayList.get(count - 1).get("title"));
+            b1.setText(arrayList.get(count - 1).get("opt1name"));
+            b2.setText(arrayList.get(count - 1).get("opt2name"));
+            b3.setText(arrayList.get(count - 1).get("opt3name"));
+            //b4.setText(arrayList.get(count-1).get("opt4name"));
+            checkChosen(count);
+        } else if (count == 1) {
+            count = arrayList.size();
+
+            String strs = "PCDIGesturepic" + (count) + ".jpg";
+            Bitmap b = getBitmap(strs);
+
+            image.setImageBitmap(b);
+            tv.setText(arrayList.get(count - 1).get("title"));
+            b1.setText(arrayList.get(count - 1).get("opt1name"));
+            b2.setText(arrayList.get(count - 1).get("opt2name"));
+            b3.setText(arrayList.get(count - 1).get("opt3name"));
             //b4.setText(arrayList.get(count-1).get("opt4name"));
             checkChosen(count);
         }
-        else if(count==1){
-            count=arrayList.size();
-
-            String strs="PCDIGesturepic"+(count)+".jpg";
-            Bitmap b=getBitmap(strs);
-
-            image.setImageBitmap(b);
-            tv.setText(arrayList.get(count-1).get("title"));
-            b1.setText(arrayList.get(count-1).get("opt1name"));
-            b2.setText(arrayList.get(count-1).get("opt2name"));
-            b3.setText(arrayList.get(count-1).get("opt3name"));
-            //b4.setText(arrayList.get(count-1).get("opt4name"));
-            checkChosen(count);
-        }
-        number.setText(String.valueOf(count)+"/"+String.valueOf(arrayList.size()));
+        number.setText(String.valueOf(count) + "/" + String.valueOf(arrayList.size()));
     }
 
-    private void onClickRightbutton(View view){
-        if(count<arrayList.size()){
+    private void onClickRightbutton(View view) {
+        if (count < arrayList.size()) {
             count++;
 
-            String strs="PCDIGesturepic"+(count)+".jpg";
-            Bitmap b=getBitmap(strs);
+            String strs = "PCDIGesturepic" + (count) + ".jpg";
+            Bitmap b = getBitmap(strs);
 
             image.setImageBitmap(b);
-            tv.setText(arrayList.get(count-1).get("title"));
-            b1.setText(arrayList.get(count-1).get("opt1name"));
-            b2.setText(arrayList.get(count-1).get("opt2name"));
-            b3.setText(arrayList.get(count-1).get("opt3name"));
+            tv.setText(arrayList.get(count - 1).get("title"));
+            b1.setText(arrayList.get(count - 1).get("opt1name"));
+            b2.setText(arrayList.get(count - 1).get("opt2name"));
+            b3.setText(arrayList.get(count - 1).get("opt3name"));
+            //b4.setText(arrayList.get(count-1).get("opt4name"));
+            checkChosen(count);
+        } else if (count == arrayList.size()) {
+            count = 1;
+
+            String strs = "PCDIGesturepic" + (count) + ".jpg";
+            Bitmap b = getBitmap(strs);
+
+            image.setImageBitmap(b);
+            tv.setText(arrayList.get(count - 1).get("title"));
+            b1.setText(arrayList.get(count - 1).get("opt1name"));
+            b2.setText(arrayList.get(count - 1).get("opt2name"));
+            b3.setText(arrayList.get(count - 1).get("opt3name"));
             //b4.setText(arrayList.get(count-1).get("opt4name"));
             checkChosen(count);
         }
-        else if (count==arrayList.size()){
-            count=1;
-
-            String strs="PCDIGesturepic"+(count)+".jpg";
-            Bitmap b=getBitmap(strs);
-
-            image.setImageBitmap(b);
-            tv.setText(arrayList.get(count-1).get("title"));
-            b1.setText(arrayList.get(count-1).get("opt1name"));
-            b2.setText(arrayList.get(count-1).get("opt2name"));
-            b3.setText(arrayList.get(count-1).get("opt3name"));
-            //b4.setText(arrayList.get(count-1).get("opt4name"));
-            checkChosen(count);
-        }
-        number.setText(String.valueOf(count)+"/"+String.valueOf(arrayList.size()));
+        number.setText(String.valueOf(count) + "/" + String.valueOf(arrayList.size()));
     }
 
     //计算总分
-    private void countTotal(){
-        for(boolean i:isAnswered){
-            if(i==false){
+    private void countTotal() {
+        for (boolean i : isAnswered) {
+            if (i == false) {
                 submit.setBackgroundColor(Color.parseColor("#FF03DAC5"));
                 return;
             }
@@ -675,29 +664,26 @@ public class PCDIGestureMainActivity2 extends AppCompatActivity implements View.
         submit.setOnClickListener(this);
     }
 
-    private void checkChosen(int count){
-        if(b1.getText().toString()==chosenButton[count-1]){
-            System.out.println(chosenButton[count-1]+":"+b1.getText().toString());
+    private void checkChosen(int count) {
+        if (b1.getText().toString() == chosenButton[count - 1]) {
+            System.out.println(chosenButton[count - 1] + ":" + b1.getText().toString());
             b1.setBackgroundColor(Color.parseColor("#187485"));
             b2.setBackgroundColor(Color.parseColor("#65B1BF"));
             b3.setBackgroundColor(Color.parseColor("#65B1BF"));
             //b4.setBackgroundColor(Color.parseColor("#65B1BF"));
-        }
-        else if(b2.getText().toString()==chosenButton[count-1]){
-            System.out.println(chosenButton[count-1]+":"+b2.getText().toString());
+        } else if (b2.getText().toString() == chosenButton[count - 1]) {
+            System.out.println(chosenButton[count - 1] + ":" + b2.getText().toString());
             b1.setBackgroundColor(Color.parseColor("#65B1BF"));
             b2.setBackgroundColor(Color.parseColor("#187485"));
             b3.setBackgroundColor(Color.parseColor("#65B1BF"));
             //b4.setBackgroundColor(Color.parseColor("#65B1BF"));
-        }
-        else if(b3.getText().toString()==chosenButton[count-1]){
-            System.out.println(chosenButton[count-1]+":"+b2.getText().toString());
+        } else if (b3.getText().toString() == chosenButton[count - 1]) {
+            System.out.println(chosenButton[count - 1] + ":" + b2.getText().toString());
             b1.setBackgroundColor(Color.parseColor("#65B1BF"));
             b2.setBackgroundColor(Color.parseColor("#65B1BF"));
             b3.setBackgroundColor(Color.parseColor("#187485"));
             //b4.setBackgroundColor(Color.parseColor("#65B1BF"));
-        }
-        else {
+        } else {
             b1.setBackgroundColor(Color.parseColor("#65B1BF"));
             b2.setBackgroundColor(Color.parseColor("#65B1BF"));
             b3.setBackgroundColor(Color.parseColor("#65B1BF"));
@@ -706,15 +692,15 @@ public class PCDIGestureMainActivity2 extends AppCompatActivity implements View.
     }
 
     //准备结果
-    private void prepareResult(){
-        Button getResult=findViewById(R.id.getresult);
+    private void prepareResult() {
+        Button getResult = findViewById(R.id.getresult);
         getResult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for (int eachScore:splitScore) {
-                    totalScore=totalScore+eachScore;
+                for (int eachScore : splitScore) {
+                    totalScore = totalScore + eachScore;
                 }
-                System.out.println("分数："+totalScore);
+                System.out.println("分数：" + totalScore);
                 showResultList(view);
             }
         });
@@ -725,8 +711,8 @@ public class PCDIGestureMainActivity2 extends AppCompatActivity implements View.
         super.onPointerCaptureChanged(hasCapture);
     }
 
-    private void onClickShowPopBox(View view){
-        back=findViewById(R.id.back);
+    private void onClickShowPopBox(View view) {
+        back = findViewById(R.id.back);
         drawerLayout.setScrimColor(Color.parseColor("#80ffffff"));
         drawerLayout.openDrawer(findViewById(R.id.drawer));
         back.setOnClickListener(
@@ -741,10 +727,10 @@ public class PCDIGestureMainActivity2 extends AppCompatActivity implements View.
     }
 
     private void checkIfAnswered() {
-        gridLayout=findViewById(R.id.gridlayout);
-        for(int i=0;i<arrayList.size();i++){
-            TextView ts=findViewById(i);
-            if(isAnswered[i]==true){
+        gridLayout = findViewById(R.id.gridlayout);
+        for (int i = 0; i < arrayList.size(); i++) {
+            TextView ts = findViewById(i);
+            if (isAnswered[i] == true) {
                 ts.setBackgroundResource(R.drawable.problem_shape_answered);
                 ts.setTextColor(Color.WHITE);
 
@@ -752,10 +738,10 @@ public class PCDIGestureMainActivity2 extends AppCompatActivity implements View.
         }
     }
 
-    private void autoWrap(){
-        gridLayout=findViewById(R.id.gridlayout);
-        for(int i=0;i<arrayList.size();i++){
-            Button t=new Button(this);
+    private void autoWrap() {
+        gridLayout = findViewById(R.id.gridlayout);
+        for (int i = 0; i < arrayList.size(); i++) {
+            Button t = new Button(this);
             t.setId(i);
             //GradientDrawable g=new GradientDrawable();
             //g.setShape(GradientDrawable.OVAL);
@@ -764,14 +750,14 @@ public class PCDIGestureMainActivity2 extends AppCompatActivity implements View.
             //g.setSize(130,130);
             //t.setBackgroundDrawable(g);
             t.setBackgroundResource(R.drawable.problem_shape);
-            LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(130,130);
-            params.gravity=Gravity.CENTER_VERTICAL;
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(130, 130);
+            params.gravity = Gravity.CENTER_VERTICAL;
             t.setLayoutParams(params);
-            int j=i+1;
-            if(j<10){
-                t.setText(String.format(getString(R.string.add_zero),j));
+            int j = i + 1;
+            if (j < 10) {
+                t.setText(String.format(getString(R.string.add_zero), j));
             } else {
-                t.setText(String.format(getString(R.string.whole),j));
+                t.setText(String.format(getString(R.string.whole), j));
             }
             t.setTextSize(25);
             t.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -779,19 +765,19 @@ public class PCDIGestureMainActivity2 extends AppCompatActivity implements View.
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            int i=t.getId();
-                            count=i+1;
-                            String strs="PCDIGesturepic"+(count)+".jpg";
-                            Bitmap b=getBitmap(strs);
+                            int i = t.getId();
+                            count = i + 1;
+                            String strs = "PCDIGesturepic" + (count) + ".jpg";
+                            Bitmap b = getBitmap(strs);
 
                             image.setImageBitmap(b);
-                            tv.setText(arrayList.get(count-1).get("title"));
-                            b1.setText(arrayList.get(count-1).get("opt1name"));
-                            b2.setText(arrayList.get(count-1).get("opt2name"));
-                            b3.setText(arrayList.get(count-1).get("opt3name"));
+                            tv.setText(arrayList.get(count - 1).get("title"));
+                            b1.setText(arrayList.get(count - 1).get("opt1name"));
+                            b2.setText(arrayList.get(count - 1).get("opt2name"));
+                            b3.setText(arrayList.get(count - 1).get("opt3name"));
                             //b4.setText(arrayList.get(count-1).get("opt3name"));
                             checkChosen(count);
-                            number.setText(String.valueOf(count)+"/"+String.valueOf(arrayList.size()));
+                            number.setText(String.valueOf(count) + "/" + String.valueOf(arrayList.size()));
                         }
                     }
             );

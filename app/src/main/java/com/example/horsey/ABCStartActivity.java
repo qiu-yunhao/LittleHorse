@@ -4,25 +4,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.horsey.Activity.ABCMainActivity2;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLDecoder;
-import java.util.HashMap;
 
 public class ABCStartActivity extends AppCompatActivity {
 
@@ -57,7 +53,7 @@ public class ABCStartActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(ABCStartActivity.this,ABCMainActivity2.class);
+                Intent intent=new Intent(ABCStartActivity.this, ABCMainActivity2.class);
                 startActivity(intent);
             }
         });

@@ -1,4 +1,4 @@
-package com.example.horsey;
+package com.example.horsey.View;
 
 import android.graphics.Color;
 

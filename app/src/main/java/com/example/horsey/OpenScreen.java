@@ -11,17 +11,18 @@ public class OpenScreen extends AppCompatActivity {
 
     private static final int sleepTime = 2000;
     private View decorView;
+
     //开屏
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_openscreen);
-        decorView=getWindow().getDecorView();
+        decorView = getWindow().getDecorView();
         UIShrink();
 
     }
 
-    private void UIShrink(){
+    private void UIShrink() {
 //        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         decorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -34,7 +35,7 @@ public class OpenScreen extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
         new Thread(new Runnable() {
             public void run() {
