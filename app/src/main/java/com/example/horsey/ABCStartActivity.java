@@ -10,8 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.horsey.Activity.ABCMainActivity2;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 

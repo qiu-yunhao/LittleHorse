@@ -1,65 +1,101 @@
-package com.example.horsey.Activity;
+package com.example.horsey;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.os.TestLooperManager;
+import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnSystemUiVisibilityChangeListener;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.example.horsey.ChosenMark;
 import com.example.horsey.R;
-import com.example.horsey.View.Chart;
-import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.charts.RadarChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.RadarData;
+import com.github.mikephil.charting.data.RadarDataSet;
+import com.github.mikephil.charting.data.RadarEntry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IValueFormatter;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.DatagramSocket;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.List;
 import java.util.Locale;
 
-public class CABSMainActivity2 extends AppCompatActivity implements View.OnClickListener {
+public class ABCMainActivity2 extends AppCompatActivity implements View.OnClickListener {
 
     public static final String KEYWORD="com.example.evasch";
     //存储所有题目对应的图片
     //private ArrayList<Bitmap> arrBitmap=new ArrayList<>();
+    //private ArrayList<String> arrBitmapStr=new ArrayList<>();
     //存储每一个题目、选项及分数
     private ArrayList<HashMap<String,String>> arrayList=new ArrayList<>();
     //存储选中的选项
     private String[] chosenButton;
     private int[] splitScore;
     private boolean[] isAnswered;
-    private String[] result=new String[4];
+    private String[] result=new String[3];
 
-    private ChosenMark chosenMark=new ChosenMark();
     private int count=1;
     private int totalScore=0;
     private ImageView image;
     private TextView tv;
     private Button b1;
     private Button b2;
-    private Button b3;
     private Button submit;
     private ImageButton left;
     private TextView number;
@@ -71,13 +107,16 @@ public class CABSMainActivity2 extends AppCompatActivity implements View.OnClick
     private String str2,str4,str6;
     private TextView button2,button4,button6,button8,button10;
 
+    //记录各类别分数
+    private int scoreF=0,scoreR=0,scoreB=0,scoreL=0,scoreS=0;
+
     private String datetime;
     //private Button getResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cabs_activity_main2);
+        setContentView(R.layout.abc_activity_main2);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         View decorView=getWindow().getDecorView();
@@ -94,13 +133,17 @@ public class CABSMainActivity2 extends AppCompatActivity implements View.OnClick
         tv=findViewById(R.id.problemtitle);
         b1=findViewById(R.id.never);
         b2=findViewById(R.id.seldom);
-        b3=findViewById(R.id.often);
         submit=findViewById(R.id.submit);
         left=findViewById(R.id.leftbutton);
         number=findViewById(R.id.number);
         right=findViewById(R.id.rightbutton);
         drawerLayout=findViewById(R.id.main2);
-
+        //DrawerLayout drawerLayout=findViewById(R.id.main2);
+        //final View cView=findViewById(R.id.drawer);
+        //DrawerLayout.LayoutParams params=new DrawerLayout.LayoutParams(500,ViewGroup.LayoutParams.MATCH_PARENT,Gravity.CENTER);
+        //drawerLayout.setLayoutParams(params);
+        //drawerLayout.openDrawer(findViewById(R.layout.drawer_layout));
+        //getResult=findViewById(R.id.getresult);
         getAllWidgets();
         notAnsAll();
     }
@@ -132,9 +175,7 @@ public class CABSMainActivity2 extends AppCompatActivity implements View.OnClick
             case R.id.seldom:
                 onClickSeldom(view);
                 break;
-            case R.id.often:
-                onClickOften(view);
-                break;
+
             case R.id.submit:
                 onClickSubmit(view);
                 break;
@@ -174,50 +215,53 @@ public class CABSMainActivity2 extends AppCompatActivity implements View.OnClick
     }
 
     //加载相关问题及逻辑关系
-    public void getProblems() {
+    public void getProblems(){
         try {
-            StringBuffer buffer = new StringBuffer();
-            InputStream inputStream = getAssets().open("CABS.json");
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
-            byte[] b = new byte[bufferedInputStream.available()];
+            StringBuffer buffer=new StringBuffer();
+            InputStream inputStream =getAssets().open("ABC.json");
+            BufferedInputStream bufferedInputStream=new BufferedInputStream(inputStream);
+            byte[] b=new byte[bufferedInputStream.available()];
 
-            while (bufferedInputStream.read(b) != -1) {
-                String sta = new String(b);
+            while(bufferedInputStream.read(b)!=-1){
+                String sta=new String(b);
                 buffer.append(sta);
             }
 
-            String problems = buffer.toString();
+            String problems=buffer.toString();
             try {
-                JSONArray jsonArray = new JSONArray(URLDecoder.decode(problems, "GB2312"));
+                JSONArray jsonArray=new JSONArray(URLDecoder.decode(problems,"GB2312"));
                 System.out.println(jsonArray.toString());
+
                 //生成一个问题
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    HashMap<String, String> map = new HashMap<String, String>();
-                    map.put("order", jsonArray.getJSONObject(i).getString("order"));
-                    map.put("title", jsonArray.getJSONObject(i).getString("title"));
-                    JSONObject j1 = new JSONObject(URLDecoder.decode(jsonArray.getJSONObject(i).getString("option1"), "GB2312"));
-                    JSONObject j2 = new JSONObject(URLDecoder.decode(jsonArray.getJSONObject(i).getString("option2"), "GB2312"));
-                    JSONObject j3 = new JSONObject(URLDecoder.decode(jsonArray.getJSONObject(i).getString("option3"), "GB2312"));
-                    map.put("opt1name", j1.getString("name").toString());
-                    map.put("opt1score", j1.getString("score").toString());
-                    map.put("opt2name", j2.getString("name").toString());
-                    map.put("opt2score", j2.getString("score").toString());
-                    map.put("opt3name", j3.getString("name").toString());
-                    map.put("opt3score", j3.getString("score").toString());
+                for(int i=0;i<jsonArray.length();i++){
+                    HashMap<String,String> map=new HashMap<String,String>();
+                    map.put("order",jsonArray.getJSONObject(i).getString("order"));
+                    map.put("title",jsonArray.getJSONObject(i).getString("title"));
+                    map.put("type",jsonArray.getJSONObject(i).optString("type"));
+
+                    JSONObject j1=new JSONObject(URLDecoder.decode(jsonArray.getJSONObject(i).getString("option1"),"GB2312"));
+                    JSONObject j2=new JSONObject(URLDecoder.decode(jsonArray.getJSONObject(i).getString("option2"),"GB2312"));
+                    //JSONObject j3=new JSONObject(URLDecoder.decode(jsonArray.getJSONObject(i).getString("option3"),"GB2312"));
+                    //JSONObject j4=new JSONObject(URLDecoder.decode(jsonArray.getJSONObject(i).getString("option4"),"GB2312"));
+
+                    map.put("opt1name",j1.getString("name").toString());
+                    map.put("opt1score",j1.getString("score").toString());
+                    map.put("opt2name",j2.getString("name").toString());
+                    map.put("opt2score",j2.getString("score").toString());
                     arrayList.add(map);
                 }
-                splitScore = new int[arrayList.size()];
-                isAnswered = new boolean[arrayList.size()];
-                chosenButton = new String[arrayList.size()];
+                splitScore=new int[arrayList.size()];
+                isAnswered=new boolean[arrayList.size()];
+                chosenButton=new String[arrayList.size()];
                 autoWrap();
 
-                //改为按文件名存取
-                //for (int i = 0; i < jsonArray.length(); i++) {
-                //    String name = "pic" + (i + 1) + ".png";
-                //    BufferedInputStream bufferedInputStream1 = new BufferedInputStream(getAssets().open(name));
-                //    Bitmap bm = BitmapFactory.decodeStream(bufferedInputStream1);
-                //    arrBitmap.add(bm);
+                //for(int i=0;i<jsonArray.length();i++){
+                    //改为按文件名存取
+                    //String name="ABC"+(i+1)+".png";
+                    //arrBitmapStr.add(name);
+                    //改为按文件名存取
 
+                    //arrBitmap.add(bm);
                 //}
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -225,7 +269,6 @@ public class CABSMainActivity2 extends AppCompatActivity implements View.OnClick
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public Bitmap getBitmap(String name){
@@ -244,88 +287,97 @@ public class CABSMainActivity2 extends AppCompatActivity implements View.OnClick
 
     //加载处理事务
     public void loadTransactions(){
-        String strs="CABSpic"+(count)+".png";
+        String strs="ABC"+(count)+".png";
         Bitmap b=getBitmap(strs);
 
         image.setImageBitmap(b);
         tv.setText(arrayList.get(count-1).get("title"));
         b1.setText(arrayList.get(count-1).get("opt1name"));
         b2.setText(arrayList.get(count-1).get("opt2name"));
-        b3.setText(arrayList.get(count-1).get("opt3name"));
+        //b3.setText(arrayList.get(count-1).get("opt3name"));
+        //b4.setText(arrayList.get(count-1).get("opt4name"));
         number.setText(String.valueOf(count)+"/"+String.valueOf(arrayList.size()));
         left.setOnClickListener(this);
         right.setOnClickListener(this);
         b1.setOnClickListener(this);
         b2.setOnClickListener(this);
-        b3.setOnClickListener(this);
+        //b3.setOnClickListener(this);
+        //b4.setOnClickListener(this);
         number.setOnClickListener(this);
     }
 
     //点击事件
-    private void onClickOften(View view) {
-        splitScore[count-1]=2;
-        isAnswered[count-1]=true;
-
-        chosenButton[count-1]= b3.getText().toString();
-        System.out.println(chosenButton[count-1]+":"+b3.getText().toString());
-        countTotal();
-        //chosenMark.chosen(b3,b2,b1);
-        chosenAuto(b1,b2,b3);
-        //翻页
-        //onClickRightbutton(view);
-        //autoTurn(view);
-    }
     private void onClickSeldom(View view) {
-        splitScore[count-1]=1;
+        splitScore[count-1]= Integer.parseInt(arrayList.get(count-1).get("opt2score"));
         isAnswered[count-1]=true;
+        verifyCategory(arrayList.get(count-1),"opt2score");
+
+        b1.setBackgroundColor(Color.parseColor("#65B1BF"));
+        b2.setBackgroundColor(Color.parseColor("#187485"));
+        //b3.setBackgroundColor(Color.parseColor("#65B1BF"));
+        //b4.setBackgroundColor(Color.parseColor("#65B1BF"));
 
         chosenButton[count-1]= b2.getText().toString();
         System.out.println(chosenButton[count-1]+":"+b2.getText().toString());
         countTotal();
-        //chosenMark.chosen(b2,b1,b3);
-        chosenAuto(b1,b2,b3);
-        //翻页
-        //onClickRightbutton(view);
-        //autoTurn(view);
+        chosenAuto(b1,b2);
     }
+
+    private void verifyCategory(HashMap<String, String> stringStringHashMap,String optScore) {
+        if(stringStringHashMap.get("type").equals("F")){
+            scoreF+=Integer.parseInt(stringStringHashMap.get(optScore));
+        }
+        else if(stringStringHashMap.get("type").equals("R")){
+            scoreR+=Integer.parseInt(stringStringHashMap.get(optScore));
+        }
+        else if(stringStringHashMap.get("type").equals("B")){
+            scoreB+=Integer.parseInt(stringStringHashMap.get(optScore));
+        }else if(stringStringHashMap.get("type").equals("L")){
+            scoreL+=Integer.parseInt(stringStringHashMap.get(optScore));
+        }else{
+            scoreS+=Integer.parseInt(stringStringHashMap.get(optScore));
+        }
+    }
+
     private void onClickNever(View view) {
-        splitScore[count-1]=0;
+        splitScore[count-1]= Integer.parseInt(arrayList.get(count-1).get("opt1score"));
         isAnswered[count-1]=true;
+        verifyCategory(arrayList.get(count-1),"opt1score");
+
+        b1.setBackgroundColor(Color.parseColor("#187485"));
+        b2.setBackgroundColor(Color.parseColor("#65B1BF"));
+        //b3.setBackgroundColor(Color.parseColor("#65B1BF"));
+        //b4.setBackgroundColor(Color.parseColor("#65B1BF"));
 
         chosenButton[count-1]= b1.getText().toString();
         System.out.println(chosenButton[count-1]+":"+b1.getText().toString());
         countTotal();
-
-        //chosenMark.chosen(b1,b2,b3);
-        chosenAuto(b1,b2,b3);
-        //翻页
-        //onClickRightbutton(view);
-        //autoTurn(view);
+        chosenAuto(b1,b2);
     }
 
-    public void chosenAuto(Button b1, Button b2, Button b3){
+    public void chosenAuto(Button b1, Button b2){
         if(count<arrayList.size()) {
             count++;
-            String strs = "CABSpic" + (count) + ".png";
+            String strs = "ABC" + (count) + ".png";
             Bitmap b = getBitmap(strs);
 
             image.setImageBitmap(b);
             tv.setText(arrayList.get(count - 1).get("title"));
             b1.setText(arrayList.get(count - 1).get("opt1name"));
             b2.setText(arrayList.get(count - 1).get("opt2name"));
-            b3.setText(arrayList.get(count - 1).get("opt3name"));
+            //b3.setText(arrayList.get(count - 1).get("opt3name"));
             checkChosen(count);
         }
         else if (count==arrayList.size()) {
             count = 1;
-            String strs = "CABSpic" + (count) + ".png";
+            String strs = "ABC" + (count) + ".png";
             Bitmap b = getBitmap(strs);
 
             image.setImageBitmap(b);
             tv.setText(arrayList.get(count - 1).get("title"));
             b1.setText(arrayList.get(count - 1).get("opt1name"));
             b2.setText(arrayList.get(count - 1).get("opt2name"));
-            b3.setText(arrayList.get(count - 1).get("opt3name"));
+            //b3.setText(arrayList.get(count - 1).get("opt3name"));
             checkChosen(count);
         }
         number.setText(String.valueOf(count)+"/"+String.valueOf(arrayList.size()));
@@ -343,8 +395,8 @@ public class CABSMainActivity2 extends AppCompatActivity implements View.OnClick
             InputStream inputStream = null;
             InputStream resultIS=null;
 
-            inputStream = getAssets().open("CABSRESULT.json");
-            resultIS=getAssets().open("CABSEVA.json");
+            inputStream = getAssets().open("ABCRESULT.json");
+            resultIS=getAssets().open("ABCEVA.json");
 
             BufferedInputStream bufferedInputStream=new BufferedInputStream(inputStream);
             BufferedInputStream bufferedInputStream1=new BufferedInputStream(resultIS);
@@ -375,11 +427,11 @@ public class CABSMainActivity2 extends AppCompatActivity implements View.OnClick
 
                 jsonArray1=new JSONArray(URLDecoder.decode(problems1,"GB2312"));
                 System.out.println(jsonArray1.toString());
-                result=new String[4];
+                result=new String[3];
                 result[0]=jsonArray1.getJSONObject(0).getString("testResult1");
                 result[1]=jsonArray1.getJSONObject(0).getString("testResult2");
                 result[2]=jsonArray1.getJSONObject(0).getString("testResult3");
-                result[3]=jsonArray1.getJSONObject(0).getString("testResult4");
+                //result[3]=jsonArray1.getJSONObject(0).getString("testResult4");
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -410,30 +462,132 @@ public class CABSMainActivity2 extends AppCompatActivity implements View.OnClick
         makeChart();
     }
 
-    private void makeChart() {
-        PieChart pieChart=findViewById(R.id.pie);
-        Chart chart=new Chart(pieChart,totalScore);
-        chart.run();
+    private void makeChart(){
+        RadarChart radar;                                    //******需要插入*******
+        List<RadarEntry> list;                                        //******需要插入*******
+
+        radar=(RadarChart)findViewById(R.id.radar);
+        list=new ArrayList<>();
+
+        //分类统计分数！！
+        list.add(new RadarEntry(scoreF/0.3f));                          //***************将50替换为（‘感觉’类所得分数➗0.3）
+        list.add(new RadarEntry(scoreR/0.44f));                          //***************将86替换为（‘交往’类所得分数➗0.44）
+        list.add(new RadarEntry(scoreB/0.28f));                          //***************将29替换为（‘躯体运动’类所得分数➗0.28）
+        list.add(new RadarEntry(scoreL/0.31f));                          //***************将58替换为（‘语言’类所得分数➗0.31）
+        list.add(new RadarEntry(scoreS/0.25f));                          //***************将73替换为（‘生活自理’类所得分数➗0.25）
+
+        RadarDataSet radarDataSet=new RadarDataSet(list,"孩子得分情况");
+        radarDataSet.setColor(Color.parseColor("#65B1BF"));
+        RadarData radarData=new RadarData(radarDataSet);
+        radar.setData(radarData);
+
+        radarDataSet.setValueFormatter(new IValueFormatter() {
+            @Override
+            public String getFormattedValue(float v, Entry entry, int i, ViewPortHandler viewPortHandler) {
+                return v+"%";
+            }
+        });
+
+        radar.getYAxis().setAxisMinimum(0);
+
+
+        radar.setWebColor(Color.GRAY);
+        radar.setWebColorInner(Color.GRAY);
+
+
+        radar.setBackgroundColor(Color.parseColor("#fafafa"));
+
+
+        radarDataSet.setFillColor(Color.parseColor("#65B1BF"));
+        radarDataSet.setDrawFilled(true);
+
+        radarDataSet.setLineWidth(3);
+
+
+        XAxis xAxis=radar.getXAxis();
+
+        xAxis.setTextColor(Color.BLACK);
+        xAxis.setTextSize(12);
+
+        xAxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float v, AxisBase axisBase) {
+                if(v==0)
+                {
+                    return "感觉（S）";
+                }
+                if(v==1)
+                {
+                    return "交往（R）";
+                }
+                if(v==2)
+                {
+                    return "躯体运动（B）";
+                }
+                if(v==3)
+                {
+                    return "语言（L）";
+                }
+                if(v==4)
+                {
+                    return "生活自理（S）";
+                }
+                return "";
+            }
+        });
+
+        radarDataSet.setDrawValues(false);
+        radarDataSet.setValueTextSize(10);
+        radarDataSet.setValueTextColor(Color.BLACK);
+
+
+        YAxis yAxis=radar.getYAxis();
+        yAxis.setValueFormatter(new PercentFormatter());
+
+        yAxis.setDrawLabels(true);
+        yAxis.setTextColor(Color.BLACK);
+
+        yAxis.setAxisMaximum(80);
+
+
+        yAxis.setLabelCount(4,false);
+
+        radar.getDescription().setEnabled(false);
+
+        Legend legend=radar.getLegend();
+        legend.setEnabled(false);
+
+
+        radarDataSet.setHighlightLineWidth(1f);
+        radarDataSet.setDrawHighlightCircleEnabled(true);
+        radarDataSet.setHighlightCircleFillColor(Color.parseColor("#65B1BF"));
+        radarDataSet.setHighlightCircleInnerRadius(1f);
+        radarDataSet.setHighlightCircleOuterRadius(6f);
+        radarDataSet.setHighlightCircleStrokeColor(Color.parseColor("#65B1BF"));
+        radarDataSet.setHighlightCircleStrokeAlpha(102);
+        radarDataSet.setHighlightCircleStrokeWidth(6f);
+        radarDataSet.setDrawHorizontalHighlightIndicator(false);
+        radarDataSet.setDrawVerticalHighlightIndicator(false);
+
+        //*****************截至到这里**************************
+
     }
 
     private void judgeSituation() {
-        if (totalScore==0){
+        if (totalScore<=31){
             button10.setText("本次量表得分为："+totalScore+"分\n\n"+result[0]);
         }
-        else if(totalScore<=13){
+        else if(totalScore<=53){
             button10.setText("本次量表得分为："+totalScore+"分\n\n"+result[1]);
         }
-        else if(totalScore<=27){
-            button10.setText("本次量表得分为："+totalScore+"分\n\n"+result[2]);
-        }
         else {
-            button10.setText("本次量表得分为："+totalScore+"分\n\n"+result[3]);
+            button10.setText("本次量表得分为："+totalScore+"分\n\n"+result[2]);
         }
     }
 
     private void showResultList(View view){
         //arrBitmap.clear();
-        setContentView(R.layout.cabs_result_list);
+        setContentView(R.layout.abc_result_list);
         getResultList();
         prepareResultList();
     }
@@ -441,26 +595,28 @@ public class CABSMainActivity2 extends AppCompatActivity implements View.OnClick
     private void onClickLeftbutton(View view){
         if(count>1){
             count--;
-            String strs="CABSpic"+(count)+".png";
+            String strs="ABC"+(count)+".png";
             Bitmap b=getBitmap(strs);
 
             image.setImageBitmap(b);
             tv.setText(arrayList.get(count-1).get("title"));
             b1.setText(arrayList.get(count-1).get("opt1name"));
             b2.setText(arrayList.get(count-1).get("opt2name"));
-            b3.setText(arrayList.get(count-1).get("opt3name"));
+            //b3.setText(arrayList.get(count-1).get("opt3name"));
+            //b4.setText(arrayList.get(count-1).get("opt4name"));
             checkChosen(count);
         }
         else if(count==1){
             count=arrayList.size();
-            String strs="CABSpic"+(count)+".png";
+            String strs="ABC"+(count)+".png";
             Bitmap b=getBitmap(strs);
 
             image.setImageBitmap(b);
             tv.setText(arrayList.get(count-1).get("title"));
             b1.setText(arrayList.get(count-1).get("opt1name"));
             b2.setText(arrayList.get(count-1).get("opt2name"));
-            b3.setText(arrayList.get(count-1).get("opt3name"));
+            //b3.setText(arrayList.get(count-1).get("opt3name"));
+            //b4.setText(arrayList.get(count-1).get("opt4name"));
             checkChosen(count);
         }
         number.setText(String.valueOf(count)+"/"+String.valueOf(arrayList.size()));
@@ -469,26 +625,28 @@ public class CABSMainActivity2 extends AppCompatActivity implements View.OnClick
     private void onClickRightbutton(View view){
         if(count<arrayList.size()){
             count++;
-            String strs="CABSpic"+(count)+".png";
+            String strs="ABC"+(count)+".png";
             Bitmap b=getBitmap(strs);
 
             image.setImageBitmap(b);
             tv.setText(arrayList.get(count-1).get("title"));
             b1.setText(arrayList.get(count-1).get("opt1name"));
             b2.setText(arrayList.get(count-1).get("opt2name"));
-            b3.setText(arrayList.get(count-1).get("opt3name"));
+            //b3.setText(arrayList.get(count-1).get("opt3name"));
+            //b4.setText(arrayList.get(count-1).get("opt4name"));
             checkChosen(count);
         }
         else if (count==arrayList.size()){
             count=1;
-            String strs="CABSpic"+(count)+".png";
+            String strs="ABC"+(count)+".png";
             Bitmap b=getBitmap(strs);
 
             image.setImageBitmap(b);
             tv.setText(arrayList.get(count-1).get("title"));
             b1.setText(arrayList.get(count-1).get("opt1name"));
             b2.setText(arrayList.get(count-1).get("opt2name"));
-            b3.setText(arrayList.get(count-1).get("opt3name"));
+            //b3.setText(arrayList.get(count-1).get("opt3name"));
+            //b4.setText(arrayList.get(count-1).get("opt4name"));
             checkChosen(count);
         }
         number.setText(String.valueOf(count)+"/"+String.valueOf(arrayList.size()));
@@ -508,21 +666,25 @@ public class CABSMainActivity2 extends AppCompatActivity implements View.OnClick
     }
 
     private void checkChosen(int count){
-
         if(b1.getText().toString()==chosenButton[count-1]){
             System.out.println(chosenButton[count-1]+":"+b1.getText().toString());
-            chosenMark.chosen(b1,b2,b3);
+            b1.setBackgroundColor(Color.parseColor("#187485"));
+            b2.setBackgroundColor(Color.parseColor("#65B1BF"));
+            //b3.setBackgroundColor(Color.parseColor("#65B1BF"));
+            //b4.setBackgroundColor(Color.parseColor("#65B1BF"));
         }
         else if(b2.getText().toString()==chosenButton[count-1]){
             System.out.println(chosenButton[count-1]+":"+b2.getText().toString());
-            chosenMark.chosen(b2,b1,b3);
-        }
-        else if(b3.getText().toString()==chosenButton[count-1]){
-            System.out.println(chosenButton[count-1]+":"+b3.getText().toString());
-            chosenMark.chosen(b3,b1,b2);
+            b1.setBackgroundColor(Color.parseColor("#65B1BF"));
+            b2.setBackgroundColor(Color.parseColor("#187485"));
+            //b3.setBackgroundColor(Color.parseColor("#65B1BF"));
+            //b4.setBackgroundColor(Color.parseColor("#65B1BF"));
         }
         else {
-            chosenMark.notChosen(b1,b2,b3);
+            b1.setBackgroundColor(Color.parseColor("#65B1BF"));
+            b2.setBackgroundColor(Color.parseColor("#65B1BF"));
+            //b3.setBackgroundColor(Color.parseColor("#65B1BF"));
+            //b4.setBackgroundColor(Color.parseColor("#65B1BF"));
         }
     }
 
@@ -578,7 +740,12 @@ public class CABSMainActivity2 extends AppCompatActivity implements View.OnClick
         for(int i=0;i<arrayList.size();i++){
             Button t=new Button(this);
             t.setId(i);
-            //设置选项卡
+            //GradientDrawable g=new GradientDrawable();
+            //g.setShape(GradientDrawable.OVAL);
+            //g.setColor(Color.TRANSPARENT);
+            //g.setStroke(5,Color.BLACK);
+            //g.setSize(130,130);
+            //t.setBackgroundDrawable(g);
             t.setBackgroundResource(R.drawable.problem_shape);
             LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(130,130);
             params.gravity=Gravity.CENTER_VERTICAL;
@@ -597,14 +764,15 @@ public class CABSMainActivity2 extends AppCompatActivity implements View.OnClick
                         public void onClick(View view) {
                             int i=t.getId();
                             count=i+1;
-                            String strs="CABSpic"+(count)+".png";
+                            String strs="ABC"+(count)+".png";
                             Bitmap b=getBitmap(strs);
 
                             image.setImageBitmap(b);
                             tv.setText(arrayList.get(count-1).get("title"));
                             b1.setText(arrayList.get(count-1).get("opt1name"));
                             b2.setText(arrayList.get(count-1).get("opt2name"));
-                            b3.setText(arrayList.get(count-1).get("opt3name"));
+                            //b3.setText(arrayList.get(count-1).get("opt3name"));
+                            //b4.setText(arrayList.get(count-1).get("opt3name"));
                             checkChosen(count);
                             number.setText(String.valueOf(count)+"/"+String.valueOf(arrayList.size()));
                         }
