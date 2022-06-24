@@ -124,6 +124,7 @@
         <entry key="..\:/项目/horsey/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1875" />
         <entry key="..\:/项目/horsey/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1875" />
         <entry key="..\:/项目/horsey/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="app/src/main/res/drawable-v24/line_dash.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_table.xml" value="0.11510416666666666" />
         <entry key="app/src/main/res/layout/activity_third.xml" value="0.11510416666666666" />
         <entry key="app/src/main/res/layout/choose_grammer_verb.xml" value="0.1" />
