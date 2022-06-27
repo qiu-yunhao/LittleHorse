@@ -3,51 +3,31 @@ package com.example.horsey.Fragment;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.fragment.app.Fragment;
 
+import com.example.horsey.Bean.Help;
 import com.example.horsey.R;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-/**
- * 这个是把答题框的内容拖拽到题目图片中
- */
 
-import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipDescription;
 import android.os.Build;
-import android.os.Bundle;
+
 import android.util.Log;
 import android.view.DragEvent;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.fragment.app.Fragment;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+
 
 /**
  * 这个是把答题框的内容拖拽到题目图片中
@@ -55,8 +35,11 @@ import java.util.List;
 public class SecondTypeFragment extends BaseFragment {
     private static final String PARAM = "SecondTypeFragment";
     private LinearLayout title, answer;
-    private int type,move;
-    private HashMap<AppCompatImageView,Integer> map;
+    private int type, move;
+    private HashMap<AppCompatImageView, Integer> map;
+    private View last;
+
+
 
     public static SecondTypeFragment newInstance(int type) {
         SecondTypeFragment fragment = new SecondTypeFragment();
@@ -80,7 +63,7 @@ public class SecondTypeFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View v = inflater.inflate(R.layout.touch_fragment, container, false);
-        Log.d("Pa",""+v.getWidth());
+        Log.d("Pa", "" + v.getWidth());
         map = new HashMap<>();
         initView(v);
         return v;
@@ -95,28 +78,24 @@ public class SecondTypeFragment extends BaseFragment {
      */
 
 
-
     //题目图片
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private List<Integer> getTitleImageViewIDs() {
-        List<Integer> list = new ArrayList<>();
-        //list.add(R.drawable.user);
-        //list.add(R.drawable.s1);
-        return list;
+        Help help = new Help();
+        return help.getData(type).getTitle();
     }
 
     //答题框图片
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private List<Integer> getAnswerImageViewIDs() {
-        List<Integer> list = new ArrayList<>();
-        //list.add(R.drawable.s1);
-        //list.add(R.drawable.user);
-        return list;
+        Help help = new Help();
+        return help.getData(type).getAnswer();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private List<Integer> getResult() {
-        List<Integer> list = new ArrayList<>();
-        list.add(1);
-        list.add(0);
-        return list;
+        Help help = new Help();
+        return help.getData(type).getResult();
     }
 
 
@@ -133,25 +112,22 @@ public class SecondTypeFragment extends BaseFragment {
             imageView.setLayoutParams(lp);
             imageView.setImageResource(getTitleImageViewIDs().get(i));
             imageView.setOnDragListener((view, e) -> {
-                /**
-                 * 此处通过event.getX(); event.getY(); 获取的x，y是手指（也即是被拖拽view的中心点）在监听view的位置。
-                 */
+
+                 //此处通过event.getX(); event.getY(); 获取的x，y是手指（也即是被拖拽view的中心点）在监听view的位置。
                 if (e.getAction() == DragEvent.ACTION_DROP) {
-                    if (move == map.getOrDefault(imageView,-1)){
+                    if (move == map.getOrDefault(imageView, -1)) {
 
                         //加分,更换图片
-                        Toast.makeText(requireContext(),"加分",Toast.LENGTH_SHORT).show();
-                        answer.removeView(view);
-                    }else{
+                        controller.get().right();
+                        answer.removeView(last);
+                    } else {
                         //扣分
-                        Toast.makeText(requireContext(),"扣分",Toast.LENGTH_SHORT).show();
-                        Log.d(PARAM,"扣分");
-
+                        controller.get().error();
                     }
                 }
                 return true;
             });
-            map.put(imageView,getResult().get(i));
+            map.put(imageView, getResult().get(i));
             title.addView(imageView);
         }
         for (int i = 0; i < getAnswerImageViewIDs().size(); i++) {
@@ -163,32 +139,18 @@ public class SecondTypeFragment extends BaseFragment {
                 ClipData.Item item = new ClipData.Item((CharSequence) view.getTag());
                 ClipData clipData = new ClipData(s, new String[]{ClipDescription.MIMETYPE_TEXT_PLAIN}, item);
                 move = -1;
-                for(int j = 0 ; j < answer.getChildCount() ; j++){
-                    if(view == answer.getChildAt(j)){
+                for (int j = 0; j < answer.getChildCount(); j++) {
+                    if (view == answer.getChildAt(j)) {
+                        last = view;
                         move = j;
                     }
                 }
-                Log.d("移动序号",String.valueOf(move));
+                Log.d("移动序号", String.valueOf(move));
                 view.startDragAndDrop(clipData, new View.DragShadowBuilder(view), null, 0);
                 return true;
             });
             answer.addView(imageView);
         }
-
-
-    }
-
-    private boolean check(int x,int y){
-        int t = -1;
-        for(int i = 0 ; i < getTitleImageViewIDs().size() ; i++){
-            View v = title.getChildAt(i);
-            Log.d("判断图片地址",v.getLeft() + " " + v.getRight() + " " + (v.getTop() + title.getTop()) + " " + (v.getBottom()+title.getTop()));
-            if(x <= v.getRight() && x >= v.getLeft() && y <= v.getBottom() + title.getTop() && y>= v.getTop() + title.getTop()){
-                t = i;
-            }
-        }
-        Log.d("终点坐标",String.valueOf(t));
-        return getResult().get(t) == move;
     }
 }
 

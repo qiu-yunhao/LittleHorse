@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.1" />
         <entry key="..\:/2022-04-28/项目/horsey/app/src/main/res/layout/activity_choose.xml" value="0.1" />
         <entry key="..\:/2022-04-28/项目/horsey/app/src/main/res/layout/activity_choose2.xml" value="0.11299261083743842" />
         <entry key="..\:/2022-04-28/项目/horsey/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
@@ -125,10 +126,35 @@
         <entry key="..\:/项目/horsey/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1875" />
         <entry key="..\:/项目/horsey/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="app/src/main/res/drawable-v24/line_dash.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/button_login.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/button_shape.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/join.xml" value="0.109" />
+        <entry key="app/src/main/res/drawable/problem_shape.xml" value="0.109" />
+        <entry key="app/src/main/res/drawable/problem_shape_answered.xml" value="0.109" />
+        <entry key="app/src/main/res/drawable/table_shape.xml" value="0.109" />
+        <entry key="app/src/main/res/layout-v26/activity_third.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/abc_activity_start.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_choice.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_table.xml" value="0.11510416666666666" />
-        <entry key="app/src/main/res/layout/activity_third.xml" value="0.11510416666666666" />
+        <entry key="app/src/main/res/layout/activity_third.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/cars_activity_main2.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/cars_activity_start.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/cars_result_list.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/choose_game_options.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/choose_grammar.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/choose_grammar__backup.xml" value="0.1" />
         <entry key="app/src/main/res/layout/choose_grammer_verb.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/mchart_activity_start.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/mchart_result_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/pcdigesture_activity_main2.xml" value="0.11510416666666666" />
+        <entry key="app/src/main/res/layout/pcdigesture_activity_start.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/pcdigesture_result_list.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/pcdisentences_activity_main2.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/pcdisentences_activity_start.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/pcdisentences_result_list.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/table_choose.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/title.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/title__backup.xml" value="0.1" />
         <entry key="app/src/main/res/layout/touch_fragment.xml" value="0.11458333333333333" />
       </map>
     </option>

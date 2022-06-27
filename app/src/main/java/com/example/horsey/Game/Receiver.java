@@ -1,5 +1,6 @@
 package com.example.horsey.Game;
 
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -11,6 +12,7 @@ public class Receiver extends BroadcastReceiver {
     private final WeakReference<Activity> activityWeakReference;
     //需要关闭的Activity的名称,继续添加就行
     public static final String ActivityName = "";
+    public static final String Activity_choose_grammar = "ChoiceActivity";
 
     public Receiver(Activity activity){
         activityWeakReference = new WeakReference<>(activity);
@@ -21,6 +23,9 @@ public class Receiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         switch (intent.getAction()){
             case ActivityName:
+                activityWeakReference.get().finish();
+                break;
+            case Activity_choose_grammar:
                 activityWeakReference.get().finish();
                 break;
         }

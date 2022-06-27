@@ -5,10 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,7 +19,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-public class OneTypeFragment extends Fragment {
+public class OneTypeFragment extends BaseFragment {
     private RecyclerView optionRV, chosenRV;
     private OptionAdapter optionAdapter;
     private ChosenAdapter chosenAdapter;
@@ -43,14 +41,6 @@ public class OneTypeFragment extends Fragment {
         return view;
     }
 
-//    这段代码不用管，是把这段代码当成Activity测试用的
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.choose_grammer_verb);
-//
-//        initView();
-//    }
 
     //
     public void restartList() {
@@ -156,8 +146,8 @@ public class OneTypeFragment extends Fragment {
             chosenList.add(resource);
             optionList.remove(pos);
             if (chosenList.size() == correctList.size()) {
-                if (judgeList()) Toast.makeText(getActivity(), "正确！", Toast.LENGTH_SHORT).show();
-                else Toast.makeText(getActivity(), "错误！", Toast.LENGTH_SHORT).show();
+                if (judgeList()) controller.get().right();
+                else controller.get().error();
             }
             updateRV();
         });
