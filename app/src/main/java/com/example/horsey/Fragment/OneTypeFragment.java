@@ -30,7 +30,6 @@ public class OneTypeFragment extends BaseFragment {
 
     public OneTypeFragment(List<Integer> correctList) {
         this.correctList = correctList;
-
     }
 
     @Nullable
@@ -46,7 +45,6 @@ public class OneTypeFragment extends BaseFragment {
     public void restartList() {
         optionList.clear();
         chosenList.clear();
-        correctList.clear();
         //这一坨是测试数据，不用管
 //        int imgID0 = R.drawable.dad;
 //        int imgID1 = R.drawable.mom;
@@ -101,19 +99,9 @@ public class OneTypeFragment extends BaseFragment {
         optionRV = view.findViewById(R.id.options);
         chosenRV = view.findViewById(R.id.chosen);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false) {
-            @Override
-            public boolean canScrollHorizontally() {
-                return false;
-            }
-        };
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         optionRV.setLayoutManager(layoutManager);
-        LinearLayoutManager layoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false) {
-            @Override
-            public boolean canScrollHorizontally() {
-                return false;
-            }
-        };
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         chosenRV.setLayoutManager(layoutManager2);
 
         updateRV();
