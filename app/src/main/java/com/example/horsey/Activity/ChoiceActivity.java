@@ -5,13 +5,15 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.AppCompatImageButton;
+
 import com.example.horsey.Game.Receiver;
 import com.example.horsey.R;
 
 public class ChoiceActivity extends BaseActivity {
     private Receiver receiver;
     private int type;
-    private ImageView role,color,toy;
+    private AppCompatImageButton role,color,toy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

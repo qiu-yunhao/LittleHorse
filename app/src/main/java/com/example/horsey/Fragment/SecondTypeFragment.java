@@ -37,6 +37,7 @@ public class SecondTypeFragment extends BaseFragment {
     private LinearLayout title, answer;
     private int type, move;
     private HashMap<AppCompatImageView, Integer> map;
+    private HashMap<AppCompatImageView, Integer> map_change;
     private View last;
 
 
@@ -65,6 +66,7 @@ public class SecondTypeFragment extends BaseFragment {
         View v = inflater.inflate(R.layout.touch_fragment, container, false);
         Log.d("Pa", "" + v.getWidth());
         map = new HashMap<>();
+        map_change = new HashMap<>();
         initView(v);
         return v;
     }
@@ -81,21 +83,22 @@ public class SecondTypeFragment extends BaseFragment {
     //题目图片
     @RequiresApi(api = Build.VERSION_CODES.N)
     private List<Integer> getTitleImageViewIDs() {
-        Help help = new Help();
-        return help.getData(type).getTitle();
+        return Help.getData(type).getTitle();
     }
 
     //答题框图片
     @RequiresApi(api = Build.VERSION_CODES.N)
     private List<Integer> getAnswerImageViewIDs() {
-        Help help = new Help();
-        return help.getData(type).getAnswer();
+        return Help.getData(type).getAnswer();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private List<Integer> getResult() {
-        Help help = new Help();
-        return help.getData(type).getResult();
+        return Help.getData(type).getResult();
+    }
+
+    private List<Integer> getChange() {
+        return Help.getData(type).getChange();
     }
 
 
@@ -112,14 +115,13 @@ public class SecondTypeFragment extends BaseFragment {
             imageView.setLayoutParams(lp);
             imageView.setImageResource(getTitleImageViewIDs().get(i));
             imageView.setOnDragListener((view, e) -> {
-
                  //此处通过event.getX(); event.getY(); 获取的x，y是手指（也即是被拖拽view的中心点）在监听view的位置。
                 if (e.getAction() == DragEvent.ACTION_DROP) {
                     if (move == map.getOrDefault(imageView, -1)) {
-
                         //加分,更换图片
                         controller.get().right();
-                        answer.removeView(last);
+                        imageView.setImageResource(map_change.get(imageView));
+                        last.setVisibility(View.GONE);
                     } else {
                         //扣分
                         controller.get().error();
@@ -128,6 +130,7 @@ public class SecondTypeFragment extends BaseFragment {
                 return true;
             });
             map.put(imageView, getResult().get(i));
+            map.put(imageView, getChange().get(i));
             title.addView(imageView);
         }
         for (int i = 0; i < getAnswerImageViewIDs().size(); i++) {

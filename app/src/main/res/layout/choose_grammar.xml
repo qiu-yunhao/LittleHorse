@@ -79,7 +79,8 @@
             android:id="@+id/choose_role"
             android:layout_width="0dp"
             android:layout_height="0dp"
-
+            android:src="@drawable/c1"
+            android:scaleType="fitCenter"
             android:background="@drawable/dew"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHeight_default="percent"
@@ -118,7 +119,7 @@
             android:autoSizeStepGranularity="2sp"
             android:autoSizeTextType="uniform"
             android:gravity="center"
-            android:text="人物"
+            android:text="动作短语"
             android:textColor="#65B1BF"
 
             app:layout_constraintBottom_toBottomOf="parent"
@@ -136,7 +137,8 @@
             android:id="@+id/choose_color"
             android:layout_width="0dp"
             android:layout_height="0dp"
-
+            android:src="@drawable/c2"
+            android:scaleType="fitCenter"
             android:background="@drawable/dew"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHeight_default="percent"
@@ -160,7 +162,7 @@
             android:autoSizeStepGranularity="2sp"
             android:autoSizeTextType="uniform"
             android:gravity="center"
-            android:text="颜色"
+            android:text="介词短语"
             android:textColor="#65B1BF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/choose_color"
@@ -177,7 +179,8 @@
             android:id="@+id/choose_toy"
             android:layout_width="0dp"
             android:layout_height="0dp"
-
+            android:src="@drawable/c3"
+            android:scaleType="fitCenter"
             android:background="@drawable/dew"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHeight_default="percent"
@@ -200,7 +203,7 @@
             android:autoSizeStepGranularity="2sp"
             android:autoSizeTextType="uniform"
             android:gravity="center"
-            android:text="玩具"
+            android:text="综合情景"
             android:textColor="#65B1BF"
 
             app:layout_constraintHeight_default="percent"

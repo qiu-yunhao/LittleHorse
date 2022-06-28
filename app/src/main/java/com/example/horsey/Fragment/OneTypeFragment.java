@@ -46,20 +46,6 @@ public class OneTypeFragment extends BaseFragment {
     public void restartList() {
         optionList.clear();
         chosenList.clear();
-        correctList.clear();
-        //这一坨是测试数据，不用管
-//        int imgID0 = R.drawable.dad;
-//        int imgID1 = R.drawable.mom;
-//        int imgID2 = R.drawable.doll;
-//        optionList.clear();
-//        optionList.add(imgID0);
-//        optionList.add(imgID1);
-//        optionList.add(imgID2);
-//        correctList.add(imgID0);
-//        correctList.add(imgID2);
-//        correctList.add(imgID1);
-
-        // 这一段初始化optionList，将correctList中的数据打乱之后放入optionList，作为选项（无必要可以不用删）
         Random random = new Random();
         List<Integer> randomList = new ArrayList<>();
         while (randomList.size() != correctList.size()) {

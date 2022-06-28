@@ -14,7 +14,7 @@
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent="0.95"
         app:layout_constraintHeight_default="percent"
-        app:layout_constraintHeight_percent="0.82"
+        app:layout_constraintHeight_percent="0.80"
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
