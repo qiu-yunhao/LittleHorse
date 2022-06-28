@@ -33,17 +33,17 @@ public class ChoiceActivity extends BaseActivity {
         ImageView start = findViewById(R.id.third_enter);
         role.setOnClickListener(view -> {
             type = 1;
-            Toast.makeText(ChoiceActivity.this,"点击人物",Toast.LENGTH_SHORT).show();
+            Toast.makeText(ChoiceActivity.this,"动词短语",Toast.LENGTH_SHORT).show();
             //setBack();
         });
         color.setOnClickListener(view -> {
             type = 2;
-            Toast.makeText(ChoiceActivity.this,"点击颜色",Toast.LENGTH_SHORT).show();
+            Toast.makeText(ChoiceActivity.this,"介词短语",Toast.LENGTH_SHORT).show();
             //setBack();
         });
         toy.setOnClickListener(view -> {
             type = 3;
-            Toast.makeText(ChoiceActivity.this,"点击玩具",Toast.LENGTH_SHORT).show();
+            Toast.makeText(ChoiceActivity.this,"综合情景",Toast.LENGTH_SHORT).show();
             //setBack();
         });
         start.setOnClickListener(view -> {

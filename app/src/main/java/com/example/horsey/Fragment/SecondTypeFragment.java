@@ -22,6 +22,7 @@ import android.os.Build;
 
 import android.util.Log;
 import android.view.DragEvent;
+import android.widget.Toast;
 
 
 import androidx.annotation.RequiresApi;
@@ -83,22 +84,27 @@ public class SecondTypeFragment extends BaseFragment {
     //题目图片
     @RequiresApi(api = Build.VERSION_CODES.N)
     private List<Integer> getTitleImageViewIDs() {
-        return Help.getData(type).getTitle();
+        Help help = new Help();
+        return help.getData(type).getTitle();
     }
 
     //答题框图片
     @RequiresApi(api = Build.VERSION_CODES.N)
     private List<Integer> getAnswerImageViewIDs() {
-        return Help.getData(type).getAnswer();
+        Help help = new Help();
+        return help.getData(type).getAnswer();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private List<Integer> getResult() {
-        return Help.getData(type).getResult();
+        Help help = new Help();
+        return help.getData(type).getResult();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private List<Integer> getChange() {
-        return Help.getData(type).getChange();
+        Help help = new Help();
+        return help.getData(type).getChange();
     }
 
 
@@ -119,18 +125,20 @@ public class SecondTypeFragment extends BaseFragment {
                 if (e.getAction() == DragEvent.ACTION_DROP) {
                     if (move == map.getOrDefault(imageView, -1)) {
                         //加分,更换图片
+                        Toast.makeText(requireContext(),"正确",Toast.LENGTH_SHORT).show();
                         controller.get().right();
                         imageView.setImageResource(map_change.get(imageView));
                         last.setVisibility(View.GONE);
                     } else {
                         //扣分
+                        Toast.makeText(requireContext(),"错误",Toast.LENGTH_SHORT).show();
                         controller.get().error();
                     }
                 }
                 return true;
             });
             map.put(imageView, getResult().get(i));
-            map.put(imageView, getChange().get(i));
+            map_change.put(imageView, getChange().get(i));
             title.addView(imageView);
         }
         for (int i = 0; i < getAnswerImageViewIDs().size(); i++) {

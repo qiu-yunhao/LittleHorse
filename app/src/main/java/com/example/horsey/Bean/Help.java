@@ -66,7 +66,7 @@ public class Help {
         }
     }
 
-    public static DataBean getData(int index) {
+    public DataBean getData(int index) {
         return data.get(index);
     }
 }

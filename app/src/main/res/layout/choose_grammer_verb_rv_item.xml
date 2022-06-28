@@ -7,7 +7,6 @@
     <ImageView
         android:id="@+id/optionImage"
         android:layout_width="200dp"
-        android:layout_height="100dp"
+        android:layout_height="match_parent"
         tools:srcCompat="@tools:sample/avatars" />
-
 </LinearLayout>

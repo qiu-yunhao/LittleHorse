@@ -6,11 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/game"
         android:layout_width="0dp"
         android:layout_height="0dp"
-
+        android:orientation="vertical"
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent="0.95"
         app:layout_constraintHeight_default="percent"
@@ -25,10 +25,10 @@
 
         <FrameLayout
             android:id="@+id/frameLayout2"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="350dp"
+            android:layout_weight="3"
+            android:layout_margin="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/frameLayout"
             app:layout_constraintStart_toStartOf="@+id/frameLayout"
@@ -45,11 +45,11 @@
 
         <FrameLayout
             android:id="@+id/frameLayout"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight="2"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginBottom="50dp"
             android:background="@drawable/line_dash"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -68,12 +68,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="重新选择"
+            android:textSize="24sp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/frameLayout"
             app:layout_constraintStart_toStartOf="@+id/frameLayout"
             app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

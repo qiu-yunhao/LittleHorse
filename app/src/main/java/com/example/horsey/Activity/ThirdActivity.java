@@ -67,6 +67,8 @@ public class ThirdActivity extends BaseActivity implements FragmentController {
     public void initView() {
         GameViewModel game = new ViewModelProvider(this).get(GameViewModel.class);
         viewPager = findViewById(R.id.game_viewpager_3);
+        TextView textView_now = findViewById(R.id.third_type);
+        textView_now.setText(getNow());
         TextView textView_grades = findViewById(R.id.third_grades);
         textView_time = findViewById(R.id.third_time);
         play = new MediaPlayer();
@@ -104,7 +106,6 @@ public class ThirdActivity extends BaseActivity implements FragmentController {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public List<BaseFragment> getFragments() {
         List<BaseFragment> fragments = new ArrayList<>();
-
         Help help = new Help();
         if (type == 1) {
             fragments.add(new OneTypeFragment(help.getData(0).getTitle()));
@@ -119,6 +120,15 @@ public class ThirdActivity extends BaseActivity implements FragmentController {
             baseFragment.setController(this);
         }
         return fragments;
+    }
+
+    private String getNow(){
+        switch (type){
+            case 1:return "动词短语";
+            case 2:return "介词短语";
+            case 3:return "综合情景";
+            default:return "error";
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
