@@ -27,13 +27,15 @@
             android:id="@+id/frameLayout2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"
-            android:layout_margin="20dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="300dp"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/frameLayout"
             app:layout_constraintStart_toStartOf="@+id/frameLayout"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="Suspicious0dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/options"
@@ -49,6 +51,7 @@
             android:layout_height="0dp"
             android:layout_weight="2"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/line_dash"
             app:layout_constraintBottom_toBottomOf="parent"
