@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.horsey.R;
-import com.example.horsey.ViewModel.ChosenAdapter;
-import com.example.horsey.ViewModel.OptionAdapter;
+import com.example.horsey.ViewModel.YufaVM.ChosenAdapter;
+import com.example.horsey.ViewModel.YufaVM.OptionAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +36,7 @@ public class OneTypeFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.choose_grammer_verb, container,false);
+        View view = inflater.inflate(R.layout.fragement_yufa, container,false);
         initView(view);
         return view;
     }

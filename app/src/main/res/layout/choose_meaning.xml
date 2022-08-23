@@ -78,36 +78,37 @@
             android:background="@drawable/choose_circle"/>
 
         <ImageButton
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
             android:id="@+id/cv_ib1"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/yuyi_noun"
+            app:layout_constraintBottom_toBottomOf="@id/cv_iv2"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintHeight_percent="0.23"
             app:layout_constraintLeft_toLeftOf="@id/cv_iv2"
-            app:layout_constraintTop_toTopOf="@id/cv_iv2"
-            app:layout_constraintBottom_toBottomOf="@id/cv_iv2"
-            app:layout_constraintRight_toRightOf="@id/cv_iv2" />
+            app:layout_constraintRight_toRightOf="@id/cv_iv2"
+            app:layout_constraintTop_toTopOf="@id/cv_iv2" />
 
         <TextView
             android:id="@+id/name1"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="人物"
-            android:textColor="#65B1BF"
-            android:autoSizeTextType="uniform"
-            android:autoSizeMinTextSize="12sp"
             android:autoSizeMaxTextSize="40sp"
+            android:autoSizeMinTextSize="12sp"
             android:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
             android:gravity="center"
-            app:layout_constraintWidth_percent="0.13"
+            android:text="名词"
+            android:textColor="#65B1BF"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHeight_percent="0.08"
-            app:layout_constraintVertical_bias="0.05"
-            app:layout_constraintTop_toBottomOf="@id/cv_iv2"
             app:layout_constraintLeft_toLeftOf="@id/cv_iv2"
             app:layout_constraintRight_toRightOf="@id/cv_iv2"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/cv_iv2"
+            app:layout_constraintVertical_bias="0.05"
+            app:layout_constraintWidth_percent="0.13" />
 
         <ImageView
             android:id="@+id/cv_iv3"
@@ -123,36 +124,37 @@
             android:background="@drawable/choose_circle"/>
 
         <ImageButton
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
             android:id="@+id/cv_ib2"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/yuyi_adj"
+            app:layout_constraintBottom_toBottomOf="@id/cv_iv3"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintHeight_percent="0.23"
             app:layout_constraintLeft_toLeftOf="@id/cv_iv3"
-            app:layout_constraintTop_toTopOf="@id/cv_iv3"
-            app:layout_constraintBottom_toBottomOf="@id/cv_iv3"
-            app:layout_constraintRight_toRightOf="@id/cv_iv3" />
+            app:layout_constraintRight_toRightOf="@id/cv_iv3"
+            app:layout_constraintTop_toTopOf="@id/cv_iv3" />
 
         <TextView
             android:id="@+id/name2"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="颜色"
-            android:textColor="#65B1BF"
-            android:autoSizeTextType="uniform"
-            android:autoSizeMinTextSize="12sp"
             android:autoSizeMaxTextSize="40sp"
+            android:autoSizeMinTextSize="12sp"
             android:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
             android:gravity="center"
-            app:layout_constraintWidth_percent="0.13"
+            android:text="形容词"
+            android:textColor="#65B1BF"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHeight_percent="0.08"
-            app:layout_constraintVertical_bias="0.05"
-            app:layout_constraintTop_toBottomOf="@id/cv_iv3"
             app:layout_constraintLeft_toLeftOf="@id/cv_iv3"
             app:layout_constraintRight_toRightOf="@id/cv_iv3"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/cv_iv3"
+            app:layout_constraintVertical_bias="0.05"
+            app:layout_constraintWidth_percent="0.13" />
 
         <ImageView
             android:id="@+id/cv_iv4"
@@ -168,36 +170,37 @@
             android:background="@drawable/choose_circle"/>
 
         <ImageButton
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
             android:id="@+id/cv_ib3"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="1"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/yuyi_verb"
+            app:layout_constraintBottom_toBottomOf="@id/cv_iv4"
+            app:layout_constraintDimensionRatio="0.9"
             app:layout_constraintHeight_percent="0.23"
             app:layout_constraintLeft_toLeftOf="@id/cv_iv4"
-            app:layout_constraintTop_toTopOf="@id/cv_iv4"
-            app:layout_constraintBottom_toBottomOf="@id/cv_iv4"
-            app:layout_constraintRight_toRightOf="@id/cv_iv4" />
+            app:layout_constraintRight_toRightOf="@id/cv_iv4"
+            app:layout_constraintTop_toTopOf="@id/cv_iv4" />
 
         <TextView
             android:id="@+id/name3"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="玩具"
-            android:textColor="#65B1BF"
-            android:autoSizeTextType="uniform"
-            android:autoSizeMinTextSize="12sp"
             android:autoSizeMaxTextSize="40sp"
+            android:autoSizeMinTextSize="12sp"
             android:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
             android:gravity="center"
-            app:layout_constraintWidth_percent="0.13"
+            android:text="动词"
+            android:textColor="#65B1BF"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHeight_percent="0.08"
-            app:layout_constraintVertical_bias="0.05"
-            app:layout_constraintTop_toBottomOf="@id/cv_iv4"
             app:layout_constraintLeft_toLeftOf="@id/cv_iv4"
             app:layout_constraintRight_toRightOf="@id/cv_iv4"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/cv_iv4"
+            app:layout_constraintVertical_bias="0.05"
+            app:layout_constraintWidth_percent="0.13" />
 
         <ImageView
             android:id="@+id/cv_iv5"
@@ -213,36 +216,37 @@
             android:background="@drawable/choose_circle"/>
 
         <ImageButton
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
             android:id="@+id/cv_ib4"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/yuyi_prep"
+            app:layout_constraintBottom_toBottomOf="@id/cv_iv5"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintHeight_percent="0.23"
             app:layout_constraintLeft_toLeftOf="@id/cv_iv5"
-            app:layout_constraintTop_toTopOf="@id/cv_iv5"
-            app:layout_constraintBottom_toBottomOf="@id/cv_iv5"
-            app:layout_constraintRight_toRightOf="@id/cv_iv5" />
+            app:layout_constraintRight_toRightOf="@id/cv_iv5"
+            app:layout_constraintTop_toTopOf="@id/cv_iv5" />
 
         <TextView
             android:id="@+id/name4"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="食物"
-            android:textColor="#65B1BF"
-            android:autoSizeTextType="uniform"
-            android:autoSizeMinTextSize="12sp"
             android:autoSizeMaxTextSize="40sp"
+            android:autoSizeMinTextSize="12sp"
             android:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
             android:gravity="center"
-            app:layout_constraintWidth_percent="0.13"
+            android:text="介词"
+            android:textColor="#65B1BF"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHeight_percent="0.08"
-            app:layout_constraintVertical_bias="0.05"
-            app:layout_constraintTop_toBottomOf="@id/cv_iv5"
             app:layout_constraintLeft_toLeftOf="@id/cv_iv5"
             app:layout_constraintRight_toRightOf="@id/cv_iv5"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/cv_iv5"
+            app:layout_constraintVertical_bias="0.05"
+            app:layout_constraintWidth_percent="0.13" />
 
         <ImageButton
             android:id="@+id/enter"

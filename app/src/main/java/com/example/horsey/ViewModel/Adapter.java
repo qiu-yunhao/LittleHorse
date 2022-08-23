@@ -17,7 +17,7 @@ public abstract class Adapter extends RecyclerView.Adapter<Adapter.Holder> {
         void ClickEvent(int pos);
     }
 
-    AListener listener;
+    protected AListener listener;
 
     protected abstract void setListener(AListener listener);
 
@@ -30,7 +30,7 @@ public abstract class Adapter extends RecyclerView.Adapter<Adapter.Holder> {
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.choose_grammer_verb_rv_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_yufa, parent, false);
         return new Holder(v);
     }
 

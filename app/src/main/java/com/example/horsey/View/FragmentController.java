@@ -1,7 +1,7 @@
 package com.example.horsey.View;
 
 public interface FragmentController {
-    void perFragment();
+    void preFragment();
     void nextFragment();
     void right();
     void error();
