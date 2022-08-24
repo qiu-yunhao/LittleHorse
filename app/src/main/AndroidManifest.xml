@@ -121,6 +121,8 @@
             android:name=".IndexActivity"
             android:exported="false"
             android:screenOrientation="landscape"/>
+        <activity android:name=".Activity.YuyiChoiceActivity"/>
+        <activity android:name=".Activity.YuyiActivity"/>
     </application>
 
 </manifest>

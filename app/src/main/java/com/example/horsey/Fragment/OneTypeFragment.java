@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.horsey.R;
-import com.example.horsey.ViewModel.ChosenAdapter;
-import com.example.horsey.ViewModel.OptionAdapter;
+import com.example.horsey.ViewModel.YufaVM.ChosenAdapter;
+import com.example.horsey.ViewModel.YufaVM.OptionAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +30,12 @@ public class OneTypeFragment extends BaseFragment {
 
     public OneTypeFragment(List<Integer> correctList) {
         this.correctList = correctList;
-
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.choose_grammer_verb, container,false);
+        View view = inflater.inflate(R.layout.fragement_yufa, container,false);
         initView(view);
         return view;
     }
@@ -87,19 +86,9 @@ public class OneTypeFragment extends BaseFragment {
         optionRV = view.findViewById(R.id.options);
         chosenRV = view.findViewById(R.id.chosen);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false) {
-            @Override
-            public boolean canScrollHorizontally() {
-                return false;
-            }
-        };
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         optionRV.setLayoutManager(layoutManager);
-        LinearLayoutManager layoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false) {
-            @Override
-            public boolean canScrollHorizontally() {
-                return false;
-            }
-        };
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         chosenRV.setLayoutManager(layoutManager2);
 
         updateRV();

@@ -9,9 +9,9 @@ import com.example.horsey.Fragment.BaseFragment;
 
 import java.util.List;
 
-public class ThirdViewPagerAdapter extends FragmentStateAdapter {
+public class ViewPagerAdapter extends FragmentStateAdapter {
     private final List<BaseFragment> fragments;
-    public ThirdViewPagerAdapter(@NonNull FragmentActivity fragmentActivity, List<BaseFragment> fragmentList) {
+    public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity, List<BaseFragment> fragmentList) {
         super(fragmentActivity);
         this.fragments = fragmentList;
     }
