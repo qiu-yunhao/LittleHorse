@@ -1,149 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ABCMainActivity2">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.horsey.ABCViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".ABCMainActivity2">
 
-        <include
-            layout="@layout/title"
-            tools:layout_editor_absoluteY="2dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        </include>
-        <TextView
-            android:layout_height="0dp"
-            android:layout_width="0dp"
-            android:text="评估量表测评结果"
-            android:autoSizeTextType="uniform"
-            android:autoSizeMinTextSize="12sp"
-            android:autoSizeMaxTextSize="40sp"
-            android:autoSizeStepGranularity="2sp"
-            android:gravity="center"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintWidth_percent="0.25"
-            app:layout_constraintHeight_percent="0.07"
-            app:layout_constraintVertical_bias="0.07"/>
+            <include
+                layout="@layout/title"
+                tools:layout_editor_absoluteY="2dp">
 
-        <ScrollView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:scrollbars="vertical"
-            android:scrollbarStyle="outsideOverlay"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintHeight_percent="0.77"
-            app:layout_constraintWidth_percent="0.95"
-            app:layout_constraintVertical_bias="0.7">
+            </include>
 
-            <TableLayout
-                android:id="@+id/tablelayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/table_shape"
-                tools:ignore="MissingConstraints"
-                android:isScrollContainer="true"
-                android:stretchColumns="*">
+            <TextView
+                android:layout_height="0dp"
+                android:layout_width="0dp"
+                android:text="评估量表测评结果"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizeMaxTextSize="40sp"
+                android:autoSizeStepGranularity="2sp"
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintWidth_percent="0.25"
+                app:layout_constraintHeight_percent="0.07"
+                app:layout_constraintVertical_bias="0.07" />
 
-                <TableRow
-                    android:gravity="center">
+            <ScrollView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scrollbars="vertical"
+                android:scrollbarStyle="outsideOverlay"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintHeight_percent="0.77"
+                app:layout_constraintWidth_percent="0.95"
+                app:layout_constraintVertical_bias="0.7">
 
-                    <TextView
-                        android:id="@+id/button1"
-                        android:height="60dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="1.5dip"
-                        android:autoSizeMaxTextSize="40sp"
-                        android:autoSizeMinTextSize="12sp"
-                        android:autoSizeStepGranularity="2sp"
-                        android:autoSizeTextType="uniform"
-                        android:background="#fafafa"
-                        android:gravity="center"
-                        android:text="儿童昵称" />
+                <TableLayout
+                    android:id="@+id/tablelayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table_shape"
+                    tools:ignore="MissingConstraints"
+                    android:isScrollContainer="true"
+                    android:stretchColumns="*">
 
-                    <TextView
-                        android:id="@+id/button2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="1.5dip"
-                        android:autoSizeMaxTextSize="40sp"
-                        android:autoSizeMinTextSize="12sp"
-                        android:autoSizeStepGranularity="2sp"
-                        android:autoSizeTextType="uniform"
-                        android:background="#fafafa"
-                        android:gravity="center"
-                        android:text="李静怡"
-                        android:textAlignment="center" />
+                    <TableRow android:gravity="center">
 
-                    <TextView
-                        android:id="@+id/button3"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="1.5dip"
-                        android:autoSizeMaxTextSize="40sp"
-                        android:autoSizeMinTextSize="12sp"
-                        android:autoSizeStepGranularity="2sp"
-                        android:autoSizeTextType="uniform"
-                        android:background="#fafafa"
-                        android:gravity="center"
-                        android:text="性别"
-                        android:textAlignment="center" />
+                        <TextView
+                            android:id="@+id/button1"
+                            android:height="60dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="1.5dip"
+                            android:autoSizeMaxTextSize="40sp"
+                            android:autoSizeMinTextSize="12sp"
+                            android:autoSizeStepGranularity="2sp"
+                            android:autoSizeTextType="uniform"
+                            android:background="#fafafa"
+                            android:gravity="center"
+                            android:text="儿童昵称" />
 
-                    <TextView
-                        android:id="@+id/button4"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="1.5dip"
-                        android:autoSizeMaxTextSize="40sp"
-                        android:autoSizeMinTextSize="12sp"
-                        android:autoSizeStepGranularity="2sp"
-                        android:autoSizeTextType="uniform"
-                        android:background="#fafafa"
-                        android:gravity="center"
-                        android:text="女"
-                        android:textAlignment="center" />
+                        <TextView
+                            android:id="@+id/button2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="1.5dip"
+                            android:autoSizeMaxTextSize="40sp"
+                            android:autoSizeMinTextSize="12sp"
+                            android:autoSizeStepGranularity="2sp"
+                            android:autoSizeTextType="uniform"
+                            android:background="#fafafa"
+                            android:gravity="center"
+                            android:textAlignment="center" />
 
-                    <TextView
-                        android:id="@+id/button5"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="1.5dip"
-                        android:autoSizeMaxTextSize="40sp"
-                        android:autoSizeMinTextSize="12sp"
-                        android:autoSizeStepGranularity="2sp"
-                        android:autoSizeTextType="uniform"
-                        android:background="#fafafa"
-                        android:gravity="center"
-                        android:text="年龄"
-                        android:textAlignment="center" />
+                        <TextView
+                            android:id="@+id/button3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="1.5dip"
+                            android:autoSizeMaxTextSize="40sp"
+                            android:autoSizeMinTextSize="12sp"
+                            android:autoSizeStepGranularity="2sp"
+                            android:autoSizeTextType="uniform"
+                            android:background="#fafafa"
+                            android:gravity="center"
+                            android:text="性别"
+                            android:textAlignment="center" />
 
-                    <TextView
-                        android:id="@+id/button6"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="1.5dip"
-                        android:autoSizeMaxTextSize="40sp"
-                        android:autoSizeMinTextSize="12sp"
-                        android:autoSizeStepGranularity="2sp"
-                        android:autoSizeTextType="uniform"
-                        android:background="#fafafa"
-                        android:gravity="center"
-                        android:text="6"
-                        android:textAlignment="center" />
+                        <TextView
+                            android:id="@+id/button4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="1.5dip"
+                            android:autoSizeMaxTextSize="40sp"
+                            android:autoSizeMinTextSize="12sp"
+                            android:autoSizeStepGranularity="2sp"
+                            android:autoSizeTextType="uniform"
+                            android:background="#fafafa"
+                            android:gravity="center"
+                            android:textAlignment="center" />
+
+                        <TextView
+                            android:id="@+id/button5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="1.5dip"
+                            android:autoSizeMaxTextSize="40sp"
+                            android:autoSizeMinTextSize="12sp"
+                            android:autoSizeStepGranularity="2sp"
+                            android:autoSizeTextType="uniform"
+                            android:background="#fafafa"
+                            android:gravity="center"
+                            android:text="年龄"
+                            android:textAlignment="center" />
+
+                        <TextView
+                            android:id="@+id/button6"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="1.5dip"
+                            android:autoSizeMaxTextSize="40sp"
+                            android:autoSizeMinTextSize="12sp"
+                            android:autoSizeStepGranularity="2sp"
+                            android:autoSizeTextType="uniform"
+                            android:background="#fafafa"
+                            android:gravity="center"
+                            android:textAlignment="center" />
                     </TableRow>
 
-                    <TableRow
-                        android:gravity="center">
+                    <TableRow android:gravity="center">
 
                         <TextView
                             android:id="@+id/button7"
@@ -170,13 +174,11 @@
                             android:autoSizeStepGranularity="2sp"
                             android:autoSizeTextType="uniform"
                             android:background="#fafafa"
-                            android:gravity="center"
-                            android:text="YYYY.MM.DD HH:mm:ss" />
+                            android:gravity="center" />
 
                     </TableRow>
 
-                    <TableRow
-                        android:gravity="center">
+                    <TableRow android:gravity="center">
 
                         <TextView
                             android:id="@+id/button9"
@@ -199,8 +201,7 @@
                             android:layout_span="2"
                             android:minHeight="300dp"
                             android:background="#fafafa"
-                            android:gravity="center" >
-                        </com.github.mikephil.charting.charts.RadarChart>
+                            android:gravity="center" />
 
                         <TextView
                             android:id="@+id/button10"
@@ -214,12 +215,13 @@
                             android:autoSizeTextType="uniform"
                             android:background="#fafafa"
                             android:gravity="center"
-                            android:text="正在加载中，请稍候..."/>
+                            android:text="22" />
 
                     </TableRow>
 
                 </TableLayout>
 
-        </ScrollView>
+            </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

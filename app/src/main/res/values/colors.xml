@@ -7,10 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="grey">#878888</color>
     <color name="GameColor">#65B1BF</color>
     <color name="game">#65B1BF</color>
     <color name="button_solid">#d6e7ef</color>
     <color name="frame">#5191ad</color>
     <color name="EditColor">#67a7ca</color>
     <color name="StrokeColor">#3883aa</color>
+    <color name="OptionNormalColor">#65B1BF</color>
+    <color name="OptionChosenColor">#187485</color>
+
 </resources>
