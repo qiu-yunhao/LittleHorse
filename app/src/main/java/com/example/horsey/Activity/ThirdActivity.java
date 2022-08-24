@@ -1,9 +1,7 @@
 package com.example.horsey.Activity;
 
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
@@ -24,7 +22,7 @@ import com.example.horsey.Game.Receiver;
 import com.example.horsey.R;
 import com.example.horsey.View.FragmentController;
 import com.example.horsey.ViewModel.GameViewModel;
-import com.example.horsey.ViewModel.ThirdViewPagerAdapter;
+import com.example.horsey.ViewModel.ViewPagerAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -57,8 +55,6 @@ public class ThirdActivity extends BaseActivity implements FragmentController {
         viewModel = new ViewModelProvider(this).get(GameViewModel.class);
         initView();
     }
-
-
 
 
 
@@ -135,14 +131,14 @@ public class ThirdActivity extends BaseActivity implements FragmentController {
     @Override
     protected void onResume() {
         super.onResume();
-        ThirdViewPagerAdapter adapter = new ThirdViewPagerAdapter(this, getFragments());
+        ViewPagerAdapter adapter = new ViewPagerAdapter(this, getFragments());
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(0);
         button_avatar.performClick();
     }
 
     @Override
-    public void perFragment() {
+    public void preFragment() {
         if (pos > 0) {
             viewPager.setCurrentItem(--pos);
         }

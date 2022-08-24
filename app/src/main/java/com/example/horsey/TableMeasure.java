@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.horsey.Activity.ChoiceActivity;
+import com.example.horsey.Activity.YuyiChoiceActivity;
 
 public class TableMeasure extends AppCompatActivity {
 
@@ -72,7 +73,7 @@ public class TableMeasure extends AppCompatActivity {
         button1.setOnClickListener(view -> {
                     tcm.tableChoose(button1, button, button2, button3);
                     enterbutton.setOnClickListener(null);
-                    enterButton(ChooseActivity2.class);
+                    enterButton(YuyiChoiceActivity.class);
                 }
         );
         button2.setOnClickListener(view -> {
