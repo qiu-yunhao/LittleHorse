@@ -1,10 +1,7 @@
 package com.example.horsey.Activity;
 
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -24,7 +21,7 @@ import com.example.horsey.Game.Receiver;
 import com.example.horsey.R;
 import com.example.horsey.View.FragmentController;
 import com.example.horsey.ViewModel.GameViewModel;
-import com.example.horsey.ViewModel.ThirdViewPagerAdapter;
+import com.example.horsey.Model.Adapter.ThirdViewPagerAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,7 +32,7 @@ public class ThirdActivity extends BaseActivity implements FragmentController {
     public static final String TAG = "ThirdActivity";
     private ViewPager2 viewPager;
     private TextView textView_time;
-    private MutableLiveData<Long> time;
+
     private int type, pos;
     private SimpleDateFormat format;
     private AppCompatImageButton button_avatar;
@@ -52,7 +49,6 @@ public class ThirdActivity extends BaseActivity implements FragmentController {
         Intent intent = getIntent();
         type = intent.getIntExtra(TAG, 0);
         pos = 0;
-        time = new MutableLiveData<>(0L);
         format = new SimpleDateFormat("mm:ss");
         viewModel = new ViewModelProvider(this).get(GameViewModel.class);
         initView();
@@ -86,8 +82,8 @@ public class ThirdActivity extends BaseActivity implements FragmentController {
                 pos = position;
             }
         });
-        time.observe(this, aLong -> textView_time.setText(format.format(new Date(aLong))));
-        Thread thread = new TimeThread();
+        GameViewModel.getTime().observe(this, aLong -> textView_time.setText(format.format(new Date(aLong))));
+        Thread thread = new GameViewModel.TimeThread();
         game.getGrades().observe(this, integer -> textView_grades.setText(new StringBuilder().append(integer).append("分")));
         thread.start();
         Help help = new Help();
@@ -100,6 +96,7 @@ public class ThirdActivity extends BaseActivity implements FragmentController {
         close.setOnClickListener(v->{
             this.finish();
         });
+        
     }
 
     //Type
@@ -174,23 +171,6 @@ public class ThirdActivity extends BaseActivity implements FragmentController {
         button_avatar.performClick();
     }
 
-    class TimeThread extends Thread {
-        private long t = 0;
-
-        @Override
-        public void run() {
-            super.run();
-            while (true) {
-                try {
-                    sleep(1000);
-                    t += 1000;
-                    time.postValue(t);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
 
 
 }

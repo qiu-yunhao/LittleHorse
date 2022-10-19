@@ -350,7 +350,7 @@
             app:layout_constraintWidth_percent="0.08"
             app:layout_constraintVertical_bias="0.52"
             app:layout_constraintHorizontal_bias="0.1"
-            android:background="@drawable/choose_left"
+            android:background="@drawable/choose_demesion_left"
             android:scaleType="fitCenter"/>
 
         <ImageButton

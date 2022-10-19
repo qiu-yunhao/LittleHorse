@@ -1,4 +1,4 @@
-package com.example.horsey.ViewModel;
+package com.example.horsey.Model.Adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

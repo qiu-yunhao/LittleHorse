@@ -10,6 +10,8 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import com.example.horsey.Game.Receiver;
 import com.example.horsey.R;
 
+//TODO 实现语法游戏选择
+
 public class ChoiceActivity extends BaseActivity {
     private Receiver receiver;
     private int type;

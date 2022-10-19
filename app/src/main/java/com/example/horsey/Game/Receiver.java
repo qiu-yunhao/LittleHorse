@@ -13,6 +13,7 @@ public class Receiver extends BroadcastReceiver {
     //需要关闭的Activity的名称,继续添加就行
     public static final String ActivityName = "";
     public static final String Activity_choose_grammar = "ChoiceActivity";
+    public static final String Activity_class = "ClassActivity";
 
     public Receiver(Activity activity){
         activityWeakReference = new WeakReference<>(activity);
@@ -26,6 +27,10 @@ public class Receiver extends BroadcastReceiver {
                 activityWeakReference.get().finish();
                 break;
             case Activity_choose_grammar:
+                activityWeakReference.get().finish();
+                break;
+
+            case Activity_class:
                 activityWeakReference.get().finish();
                 break;
         }

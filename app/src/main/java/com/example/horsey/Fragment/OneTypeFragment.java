@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.horsey.R;
-import com.example.horsey.ViewModel.ChosenAdapter;
-import com.example.horsey.ViewModel.OptionAdapter;
+import com.example.horsey.Model.Adapter.ChosenAdapter;
+import com.example.horsey.Model.Adapter.OptionAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

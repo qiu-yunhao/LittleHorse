@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.horsey">
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
 
     <application
         android:allowBackup="true"
@@ -12,13 +18,21 @@
         android:theme="@style/Theme.Horsey"
         android:windowSoftInputMode="adjustPan">
         <activity
-            android:name=".Activity.ChoiceActivity"
+            android:name=".Activity.ClassActivity"
             android:exported="false"
             android:screenOrientation="landscape"/>
         <activity
-            android:name=".Activity.ThirdActivity"
+            android:name=".Activity.ChoiceSecondActivity"
             android:exported="false"
             android:screenOrientation="landscape"/>
+        <activity
+            android:name=".Activity.ChoiceActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".Activity.ThirdActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".OpenScreen"
             android:exported="true"
@@ -34,12 +48,12 @@
             android:name=".RegisterActivity"
             android:exported="false"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.OpenScreen"/>
+            android:theme="@style/Theme.OpenScreen" />
         <activity
             android:name=".LoginActivity"
             android:exported="false"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.OpenScreen"/>
+            android:theme="@style/Theme.OpenScreen" />
 
         <service
             android:name=".BgmService"
@@ -120,7 +134,11 @@
         <activity
             android:name=".IndexActivity"
             android:exported="false"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".Activity.FirstActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

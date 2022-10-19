@@ -255,7 +255,7 @@
                 android:autoSizeStepGranularity="1sp"
 
                 android:background="@drawable/button_login"
-                android:text="注册"
+                android:text="注册/账号管理"
                 style="@style/whiteText"
                 android:textStyle="bold"
                 android:onClick="toRegister"

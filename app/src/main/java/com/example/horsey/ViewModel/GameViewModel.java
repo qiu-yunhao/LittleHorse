@@ -10,12 +10,14 @@ import androidx.lifecycle.ViewModel;
 public class GameViewModel extends AndroidViewModel {
     private MutableLiveData<Integer> grades;
     private int g;
+    private static MutableLiveData<Long> time;
 
 
     public GameViewModel(@NonNull Application application) {
         super(application);
         grades = new MutableLiveData<>(0);
         g = 0;
+        time = new MutableLiveData<>(0L);
     }
 
     public MutableLiveData<Integer> getGrades() {
@@ -31,6 +33,28 @@ public class GameViewModel extends AndroidViewModel {
         if (g > 0)
             g--;
         grades.postValue(g);
+    }
+
+    public static MutableLiveData<Long> getTime() {
+        return time;
+    }
+
+    public static class TimeThread extends Thread {
+        private long t = 0;
+
+        @Override
+        public void run() {
+            super.run();
+            while (true) {
+                try {
+                    sleep(1000);
+                    t += 1000;
+                    time.postValue(t);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 

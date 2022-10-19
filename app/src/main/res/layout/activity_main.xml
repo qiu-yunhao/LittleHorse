@@ -221,7 +221,7 @@
                 app:layout_constraintHorizontal_bias="0.05"
                 app:layout_constraintVertical_bias="0.45"
 
-                android:background="@drawable/choose_left" />
+                android:background="@drawable/choose_demesion_left" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
