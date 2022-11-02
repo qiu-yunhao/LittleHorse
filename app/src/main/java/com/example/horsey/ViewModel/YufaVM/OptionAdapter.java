@@ -1,10 +1,15 @@
-package com.example.horsey.Model.Adapter;
+
+package com.example.horsey.ViewModel.YufaVM;
+
+
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+import com.example.horsey.Model.Adapter.Adapter;
+
+
 
 import java.util.List;
 
-public class OptionAdapter extends Adapter{
+public class OptionAdapter extends Adapter {
     public OptionAdapter(List<Integer> optionList) {
         super(optionList);
     }

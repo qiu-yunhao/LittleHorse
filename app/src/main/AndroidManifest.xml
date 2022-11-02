@@ -139,6 +139,13 @@
             android:name=".Activity.FirstActivity"
             android:exported="false"
             android:screenOrientation="landscape" />
+
+        <activity android:name=".Activity.YuyiChoiceActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity android:name=".Activity.YuyiActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

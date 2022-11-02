@@ -3,17 +3,20 @@ package com.example.horsey.Activity;
 import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Bundle;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.horsey.Game.Receiver;
+import com.example.horsey.R;
 
 import java.io.IOException;
 
 public abstract class BaseActivity extends AppCompatActivity {
-
     public abstract void initView();
-
     //登记后记得在destroy部分删除
     public void registerBoarderReceiver(String activityName, Receiver receiver){
         IntentFilter intentFilter = new IntentFilter();

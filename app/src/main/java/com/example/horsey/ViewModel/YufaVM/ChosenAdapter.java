@@ -1,4 +1,5 @@
-package com.example.horsey.Model.Adapter;
+
+package com.example.horsey.ViewModel.YufaVM;
 
 
 

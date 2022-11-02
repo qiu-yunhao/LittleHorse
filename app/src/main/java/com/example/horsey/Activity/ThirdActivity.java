@@ -18,10 +18,11 @@ import com.example.horsey.Fragment.BaseFragment;
 import com.example.horsey.Fragment.OneTypeFragment;
 import com.example.horsey.Fragment.SecondTypeFragment;
 import com.example.horsey.Game.Receiver;
+import com.example.horsey.Model.Adapter.ThirdViewPagerAdapter;
 import com.example.horsey.R;
 import com.example.horsey.View.FragmentController;
 import com.example.horsey.ViewModel.GameViewModel;
-import com.example.horsey.Model.Adapter.ThirdViewPagerAdapter;
+
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,8 +54,6 @@ public class ThirdActivity extends BaseActivity implements FragmentController {
         viewModel = new ViewModelProvider(this).get(GameViewModel.class);
         initView();
     }
-
-
 
 
 
@@ -139,7 +138,7 @@ public class ThirdActivity extends BaseActivity implements FragmentController {
     }
 
     @Override
-    public void perFragment() {
+    public void preFragment() {
         if (pos > 0) {
             viewPager.setCurrentItem(--pos);
         }
