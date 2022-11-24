@@ -35,7 +35,7 @@ import java.util.HashMap;
  */
 public class SecondTypeFragment extends BaseFragment {
     private static final String PARAM = "SecondTypeFragment";
-    private LinearLayout title, answer;
+    private LinearLayout answer;
     private int type, move;
     private HashMap<AppCompatImageView, Integer> map;
     private HashMap<AppCompatImageView, Integer> map_change;
@@ -112,7 +112,7 @@ public class SecondTypeFragment extends BaseFragment {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public void initView(View v) {
-        title = v.findViewById(R.id.type_title);
+        LinearLayout title = v.findViewById(R.id.type_title);
         answer = v.findViewById(R.id.type_answer);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1f);
         lp.setMargins(30, 30, 30, 30);

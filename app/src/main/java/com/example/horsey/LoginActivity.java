@@ -67,18 +67,15 @@ public class LoginActivity extends AppCompatActivity {
 
     public void toLogin() {
         String name = userName.getText().toString(), pass = passWord.getText().toString();
-        viewModel.getStudentByName(name).observe(this, new Observer<Student>() {
-            @Override
-            public void onChanged(Student student) {
-                if(student != null && student.getPassword().equals(pass)) {
-                    Intent intent = new Intent(LoginActivity.this, IndexActivity.class);
-                    startActivity(intent);
-                    //finish();
-                } else {
-                    Log.d("输入的账号密码",name + "," + pass);
-                    //Log.d("Student", student.getName() + student.getPassword());
-                    Toast.makeText(LoginActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
-                }
+        viewModel.getStudentByName(name).observe(this, student -> {
+            if(student != null && student.getPassword().equals(pass)) {
+                Intent intent = new Intent(LoginActivity.this, IndexActivity.class);
+                startActivity(intent);
+                //finish();
+            } else {
+                Log.d("输入的账号密码",name + "," + pass);
+                //Log.d("Student", student.getName() + student.getPassword());
+                Toast.makeText(LoginActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
             }
         });
 

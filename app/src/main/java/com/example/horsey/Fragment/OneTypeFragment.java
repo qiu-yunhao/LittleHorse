@@ -26,7 +26,7 @@ public class OneTypeFragment extends BaseFragment {
     private ChosenAdapter chosenAdapter;
     private List<Integer> optionList = new ArrayList<>();
     private List<Integer> chosenList = new ArrayList<>();
-    private List<Integer> correctList = new ArrayList<>();
+    private List<Integer> correctList;
     private TextView textView;
 
     public OneTypeFragment(List<Integer> correctList) {

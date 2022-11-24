@@ -20,12 +20,13 @@
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/game_viewpager_3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/textView9" />
 
         <TextView
             android:id="@+id/textView9"
@@ -43,6 +44,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:targetApi="o" />
+
+        <TextView
+            android:id="@+id/third_page"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="123"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.95"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/third_close"
